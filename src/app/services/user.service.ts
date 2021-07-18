@@ -5,6 +5,8 @@ import {Subject} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthUserService {
+export class UserService {
+
+
 
 }

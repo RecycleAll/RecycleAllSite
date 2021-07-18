@@ -11,10 +11,21 @@ import { HomeComponent } from './components/home/home.component';
 import {RouterModule, Routes} from "@angular/router";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { DonViewComponent } from './components/don/don-view/don-view.component';
+import { DonFormComponent } from './components/don/don-form/don-form.component';
+import { ShopViewComponent } from './components/shop/shop-view/shop-view.component';
+import { MyAccountViewComponent } from './components/my-account/my-account-view/my-account-view.component';
+import { MyAccountUpdateComponent } from './components/my-account/my-account-update/my-account-update.component';
+import {SessionService} from "./services/session.service";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
   { path: '', component: HomeComponent},
+  { path: 'donation', component: DonViewComponent},
+  { path: 'donation/form', component: DonFormComponent},
+  { path: 'shop', component: ShopViewComponent},
+  { path: 'my-account', component: MyAccountViewComponent},
+  { path: 'my-account/edit', component: MyAccountUpdateComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
   { path: 'not-found', component: ErrorAccessComponent},
@@ -28,7 +39,12 @@ const appRoutes: Routes = [
     SignupComponent,
     LoginComponent,
     ErrorAccessComponent,
-    HomeComponent
+    HomeComponent,
+    DonViewComponent,
+    DonFormComponent,
+    ShopViewComponent,
+    MyAccountViewComponent,
+    MyAccountUpdateComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +54,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    AuthUserService
+    AuthUserService,
+    SessionService,
   ],
   bootstrap: [AppComponent]
 })

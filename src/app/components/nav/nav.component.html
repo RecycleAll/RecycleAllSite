@@ -4,15 +4,23 @@
       <a class="navbar-brand" routerLink="home">
         <img src="assets/home-white.png" alt="Logo" style="width:40px;">
       </a>
-      <li routerLinkActive="active" class="nav-item active">
+      <li routerLinkActive="active" class="nav-item">
         <a class="nav-link" routerLink="home">Home</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
+      <li routerLinkActive="active" class="nav-item">
+        <a class="nav-link" routerLink="donation">Donation</a>
+      </li>
+      <li routerLinkActive="active" class="nav-item">
+        <a class="nav-link" routerLink="shop">Boutique en ligne</a>
       </li>
     </ul>
     <h4 class="text-center text-white">Recycle All</h4>
+
+<!--    #TODO : Ajouter les ngIf en fonction du utilisateur -->
     <ul class="navbar-nav d-flex">
+      <li routerLinkActive="active" class="nav-item active">
+        <a routerLink="#" class="nav-link">Admin</a>
+      </li>
       <li routerLinkActive="active" class="nav-item active">
         <a routerLink="signup" class="nav-link">Créer un compte</a>
       </li>
