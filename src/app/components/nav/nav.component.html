@@ -16,16 +16,24 @@
     </ul>
     <h4 class="text-center text-white">Recycle All</h4>
 
-<!--    #TODO : Ajouter les ngIf en fonction du utilisateur -->
     <ul class="navbar-nav d-flex">
+<!--      <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">-->
+<!--        <a routerLink="#" class="nav-link">Admin</a>-->
+<!--      </li>-->
       <li routerLinkActive="active" class="nav-item active">
-        <a routerLink="#" class="nav-link">Admin</a>
+        <a routerLink="admin" class="nav-link">Admin</a>
       </li>
-      <li routerLinkActive="active" class="nav-item active">
+      <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">
         <a routerLink="signup" class="nav-link">Créer un compte</a>
       </li>
-      <li routerLinkActive="active" class="nav-item active">
+      <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">
         <a routerLink="login" class="nav-link">Connexion</a>
+      </li>
+      <li *ngIf="isAuth" routerLinkActive="active" class="nav-item active">
+        <a routerLink="profil" class="nav-link">Mon profil</a>
+      </li>
+      <li *ngIf="isAuth" class="nav-item active">
+        <a (click)="onSignOut()" class="nav-link" id="btn_log_out">Déconnexion</a>
       </li>
     </ul>
   </div>

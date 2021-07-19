@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UserLogInProps} from "../../../models/user.model";
-import {SessionService} from "../../../services/session.service";
+import {AuthUserService} from "../../../services/auth-user.service";
 
 @Component({
   selector: 'app-login',
@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private sessionService: SessionService
+              private authUser: AuthUserService
   ) { }
 
   ngOnInit(): void {
@@ -31,14 +31,18 @@ export class LoginComponent implements OnInit {
 
   async onSubmitForm() {
     const {email, password} = this.userForm.value;
-    const userLogIn = new UserLogInProps(email, password);
 
-    console.log("data : ", userLogIn)
-  //  #TODO : ajouter la liaison avec le service
+    const isAuth = await this.authUser.logIn(email, password)
+      .catch((error) => {
+        console.log("Error")
+      });
+    if (isAuth){
+      this.authUser.emitSession();
+      this.router.navigate(['/profil']);
+    } else {
+      alert("Erreur de connexion !\nEmail ou password invalid.f");
+    }
 
-    await this.sessionService.logIn(email, password);
-    // await this.sessionService.getUser();
-    console.log("End log in function !")
   }
 
 }
