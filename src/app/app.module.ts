@@ -58,6 +58,7 @@ import {MediaService} from "./services/media.service";
 import {MediaTypeService} from "./services/media-type.service";
 import {OrderedService} from "./services/ordered.service";
 import {SendService} from "./services/send.service";
+import { UserItemComponent } from './components/admin/user-list/user-item/user-item.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -151,7 +152,8 @@ const appRoutes: Routes = [
     NewMediaComponent,
     SingleMediaComponent,
     MediaUpdateComponent,
-    AdminHomeComponent
+    AdminHomeComponent,
+    UserItemComponent
   ],
   imports: [
     BrowserModule,

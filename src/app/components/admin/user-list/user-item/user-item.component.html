@@ -1,0 +1,6 @@
+<li [ngClass]="{'list-group-item': true}">
+  <h4>{{user.lastname}} {{user.firstname}}</h4>
+  <h5>Email : {{user.email}}</h5>
+  <h5>Coins : {{user.recycle_coins}}</h5>
+  <a [routerLink]="[user.id]">Détails</a>
+</li>

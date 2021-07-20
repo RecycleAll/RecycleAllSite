@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../../../models/user.model";
+import {UserService} from "../../../services/user.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-user-list',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserListComponent implements OnInit {
 
-  constructor() { }
+  users: User[] = []
+  usersSubscription!: Subscription;
 
-  ngOnInit(): void {
+  constructor(private userService: UserService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.usersFetch()
+    this.usersSubscription = this.userService.usersSubject.subscribe(
+      (users: User[]) => {
+        this.users = users;
+      }
+    )
+    this.userService.emitUsers();
+  }
+
+  async usersFetch() {
+    await this.userService.getAll();
   }
 
 }

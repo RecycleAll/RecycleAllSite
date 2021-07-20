@@ -61,7 +61,7 @@ export class AuthUserService {
     return false;
   }
 
-  subscribe(props: UserClientCreationProps) {
+  async subscribe(props: UserClientCreationProps) {
     this.httpClient.post<User>(
       environment.API_URL + "auth/subscribe",
       {
@@ -122,5 +122,31 @@ export class AuthUserService {
       }
     )
   }
+
+  async update(props: User) {
+    const promise = await this.httpClient.put<User>(
+      environment.API_URL + "auth/",
+      {
+        id: props.id,
+        firstname: props.firstname,
+        lastname: props.lastname,
+        email: props.email,
+        password: props.password,
+        work_id: props.work_in,
+        recycle_coins: props.recycle_coins
+      },
+      {observe: 'response'}
+    ).pipe(
+      catchError(() => {
+        return EMPTY;
+      })
+    ).toPromise();
+
+    if (promise.status === 200 && promise.body !== null){
+      return promise.body;
+    }
+    return null;
+  }
+
 
 }
