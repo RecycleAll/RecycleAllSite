@@ -78,6 +78,16 @@ export class MediaTypeService {
       environment.API_URL + `mediaType/${id}`,
       {observe: 'response'}
     ).toPromise();
+
+    if (promise.status === 200){
+      for (let mediaType of this.mediaTypes){
+        if (mediaType.id === id){
+          let index = this.mediaTypes.indexOf(mediaType);
+          this.mediaTypes.splice(index, 1);
+          this.emitMediaType();
+        }
+      }
+    }
     return promise.status === 200;
   }
 
