@@ -60,6 +60,12 @@ import {OrderedService} from "./services/ordered.service";
 import {SendService} from "./services/send.service";
 import { UserItemComponent } from './components/admin/user-list/user-item/user-item.component';
 import { MediaTypeItemComponent } from './components/admin/media-type-list/media-type-item/media-type-item.component';
+import { SendItemComponent } from './components/admin/send-list/send-item/send-item.component';
+import { ProductItemComponent } from './components/admin/product-list/product-item/product-item.component';
+import { OrderedItemComponent } from './components/admin/ordered-list/ordered-item/ordered-item.component';
+import { MediaItemComponent } from './components/admin/media-list/media-item/media-item.component';
+import { EntrepotItemComponent } from './components/admin/entrepot-list/entrepot-item/entrepot-item.component';
+import { AddressItemComponent } from './components/admin/address-list/address-item/address-item.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -155,7 +161,13 @@ const appRoutes: Routes = [
     MediaUpdateComponent,
     AdminHomeComponent,
     UserItemComponent,
-    MediaTypeItemComponent
+    MediaTypeItemComponent,
+    SendItemComponent,
+    ProductItemComponent,
+    OrderedItemComponent,
+    MediaItemComponent,
+    EntrepotItemComponent,
+    AddressItemComponent
   ],
   imports: [
     BrowserModule,
