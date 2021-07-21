@@ -1,1 +1,15 @@
-<p>single-media-type works!</p>
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <div class="container-fluid" *ngIf="mediaType !== undefined">
+      <br>
+      <h4>Media type :</h4>
+      <hr>
+      <h5>ID : {{mediaType.id}}</h5>
+      <h6>Nom : {{mediaType.name}}</h6>
+      <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+    </div>
+  </div>
+</div>
