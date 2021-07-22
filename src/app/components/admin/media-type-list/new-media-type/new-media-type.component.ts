@@ -28,7 +28,7 @@ export class NewMediaTypeComponent implements OnInit {
 
   async onSubmitForm() {
     const {name} = this.mediaTypeForm.value;
-    console.log(name);
+    // console.log(name);
     const res = await this.mediaTypeService.create({
       name
     });

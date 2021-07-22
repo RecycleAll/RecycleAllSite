@@ -35,4 +35,8 @@ export class SingleMediaTypeComponent implements OnInit {
     }
   }
 
+  onUpdate() {
+    this.router.navigate([`admin/media-type-update/${this.mediaType.id}`])
+  }
+
 }

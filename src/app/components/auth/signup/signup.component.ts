@@ -39,7 +39,7 @@ export class SignupComponent implements OnInit {
       email,
       password
     });
-    this.router.navigate(['/auth', 'login']);
+    this.router.navigate(['/login']);
   }
 }
 
