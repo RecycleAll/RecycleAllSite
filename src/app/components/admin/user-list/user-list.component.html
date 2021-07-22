@@ -3,6 +3,9 @@
     <app-side-bar></app-side-bar>
   </div>
   <div class="col-10">
+    <br>
+    <a class="btn btn-primary" routerLink="/admin/new-user">Nouvel : utilisateur</a>
+    <hr>
     <ul class="list-group">
       <app-user-item
         *ngFor="let user of users"
