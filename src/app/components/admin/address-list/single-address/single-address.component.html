@@ -1,2 +1,21 @@
-<p>single-address works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <div class="container-fluid" *ngIf="address !== undefined">
+      <br>
+      <h4>Address :</h4>
+      <hr>
+      <h5>ID : {{address.id}}</h5>
+      <h6>Nom : {{address.name}}</h6>
+      <h6>City : {{address.city}}</h6>
+      <h6>Postal Code : {{address.postal_code}}</h6>
+      <h6>Way : {{address.way}}</h6>
+      <h6>Number : {{address.number}}</h6>
+      <h6 *ngIf="address.complement_way !== undefined">Complement Way : {{address.complement_way}}</h6>
+      <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
+      <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+    </div>
+  </div>
+</div>

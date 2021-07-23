@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Address} from "../../../../models/address.model";
 
 @Component({
   selector: 'app-address-item',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./address-item.component.scss']
 })
 export class AddressItemComponent implements OnInit {
+
+  @Input() address!: Address;
 
   constructor() { }
 

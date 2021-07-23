@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {AddressService} from "../../../services/address.service";
+import {Subscription} from "rxjs";
+import {Address} from "../../../models/address.model";
 
 @Component({
   selector: 'app-address-list',
@@ -7,9 +10,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddressListComponent implements OnInit {
 
-  constructor() { }
+  addresses: Address[] = [];
+  addressesSubscription!: Subscription;
 
-  ngOnInit(): void {
+  constructor(private addressService: AddressService) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.addressesFetch();
+    this.addressesSubscription = this.addressService.addressSubject.subscribe(
+      (adresses: Address[]) => {
+        this.addresses = adresses;
+      }
+    );
+    this.addressService.emitAddress();
+  }
+
+  async addressesFetch() {
+    await this.addressService.getAll();
   }
 
 }
