@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {Entrepot, EntrepotCreation} from "../models/entrepot.model";
 import {EMPTY, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Address} from "../models/address.model";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 
@@ -28,13 +27,14 @@ export class EntrepotService {
 
   async getAll() {
     const promise = await this.httpClient.get<Entrepot[]>(
-      environment.API_URL + 'address/',
+      environment.API_URL + 'entrepot/',
       {observe: 'response'}
     ).pipe(catchError(() => {
       return EMPTY;
     })).toPromise();
 
     if (promise.status === 200 && promise.body != null){
+      console.log(promise.body);
       this.entrepots = promise.body;
     }
     this.emitEntrepot();

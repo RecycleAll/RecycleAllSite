@@ -9,9 +9,7 @@ import {User} from "../../../../models/user.model";
 export class UserItemComponent implements OnInit {
 
   @Input() user!: User;
-
   constructor() { }
-
   ngOnInit(): void {
   }
 
