@@ -29,12 +29,11 @@ export class NewEntrepotComponent implements OnInit {
   }
 
   async onSubmitForm() {
-    console.log("test");
     const {name, isAtelier, address} = this.newEntrepotForm.value;
     await this.entrepotService.create({
       name,
       isAtelier,
-      address_id:1,
+      address_id:1, //TODO
     });
 
     this.router.navigate(['/admin/entrepot']);
