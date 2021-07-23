@@ -27,6 +27,10 @@ export class SingleEntrepotComponent implements OnInit {
     this.entrepot = await this.entrepotService.getOne(id);
   }
 
+  onUpdate() {
+    this.router.navigate([`admin/entrepot-update/${this.entrepot.id}`])
+  }
+
   async onDelete() {
     const isDelete = await this.entrepotService.delete(this.entrepot.id);
     if (isDelete) {
