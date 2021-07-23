@@ -35,5 +35,8 @@ export class SingleUserComponent implements OnInit {
     }
   }
 
+  onUpdate() {
+    this.router.navigate([`admin/user-update/${this.user.id}`])
+  }
 
 }
