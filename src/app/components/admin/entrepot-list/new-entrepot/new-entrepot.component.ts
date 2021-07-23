@@ -37,7 +37,6 @@ export class NewEntrepotComponent implements OnInit {
     });
 
     this.router.navigate(['/admin/entrepot']);
-
   }
 
 }

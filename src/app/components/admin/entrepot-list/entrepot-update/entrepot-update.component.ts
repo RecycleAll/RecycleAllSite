@@ -21,12 +21,11 @@ export class EntrepotUpdateComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
-    await this.initMediaType(id);
-    console.log(this.entrepot);
+    await this.initEntrepot(id);
     this.initForm();
   }
 
-  async initMediaType(id: number) {
+  async initEntrepot(id: number) {
     this.entrepot = await this.entrepotService.getOne(id);
   }
 
