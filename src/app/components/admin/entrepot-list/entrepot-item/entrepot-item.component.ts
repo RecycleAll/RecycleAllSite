@@ -18,7 +18,7 @@ export class EntrepotItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addressService.getOne(this.entrepot.id).then(value => this.address = value);
+    this.addressService.getOne(this.entrepot.address_id).then(value => this.address = value);
   }
 
 }
