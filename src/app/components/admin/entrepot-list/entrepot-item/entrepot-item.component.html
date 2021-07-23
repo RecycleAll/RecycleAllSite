@@ -1,2 +1,6 @@
-<p>entrepot-item works!</p>
-<!--TODO-->
+<li [ngClass]="{'list-group-item': true}">
+  <h4>{{entrepot.name}}</h4>
+  <h5 [routerLink]="[entrepot.id]">Address : {{address?.city}}</h5>
+  <h5>Atelier : {{entrepot.isAtelier}}</h5>
+   <a [routerLink]="[entrepot.id]">Détails</a>
+</li>
