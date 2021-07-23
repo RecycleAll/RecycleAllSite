@@ -1,2 +1,10 @@
-<p>address-item works!</p>
-<!--TODO-->
+<li [ngClass]="{'list-group-item': true}">
+  <h5>ID : {{address.id}}</h5>
+  <h6>Nom : {{address.name}}</h6>
+  <h6>City : {{address.city}}</h6>
+  <h6>Postal Code : {{address.postal_code}}</h6>
+  <h6>Way : {{address.way}}</h6>
+  <h6>Number : {{address.number}}</h6>
+  <h6 *ngIf="address.complement_way !== undefined">Complement Way : {{address.complement_way}}</h6>
+  <a [routerLink]="[address.id]">Détails</a>
+</li>

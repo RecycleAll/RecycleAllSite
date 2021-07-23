@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {MediaTypeService} from "../../../../services/media-type.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Media} from "../../../../models/media.model";
 import {MediaType} from "../../../../models/media-type.model";
 
 @Component({
@@ -18,7 +17,8 @@ export class MediaTypeUpdateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private mediaTypeService: MediaTypeService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
@@ -46,9 +46,9 @@ export class MediaTypeUpdateComponent implements OnInit {
       name
     });
 
-    if (res !== null){
+    if (res !== null) {
       this.router.navigate(['/admin/media-type']);
-    }else{
+    } else {
       alert("Error of update");
     }
   }

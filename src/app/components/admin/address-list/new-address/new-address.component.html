@@ -1,2 +1,37 @@
-<p>new-address works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <br>
+    <h4>Address : modification</h4>
+    <hr>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmitForm()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="number">Number</label>
+        <input type="text" id="number" class="form-control" formControlName="number">
+      </div>
+      <div class="form-group">
+        <label for="way">Way</label>
+        <input type="text" id="way" class="form-control" formControlName="way">
+      </div>
+      <div class="form-group">
+        <label for="complement_way">Complement way</label>
+        <input type="text" id="complement_way" class="form-control" formControlName="complement_way">
+      </div>
+      <div class="form-group">
+        <label for="postal_code">Postal code</label>
+        <input type="text" id="postal_code" class="form-control" formControlName="postal_code">
+      </div>
+      <div class="form-group">
+        <label for="city">City</label>
+        <input type="text" id="city" class="form-control" formControlName="city">
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">Soumettre</button>
+    </form>
+  </div>
+</div>
