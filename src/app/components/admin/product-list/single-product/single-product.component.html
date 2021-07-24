@@ -16,6 +16,10 @@
         <a [routerLink]="'/admin/entrepot/'+entrepot?.id"> {{entrepot?.name}} </a>
       </h5>
 
+      <h5>Don :
+        <a [routerLink]="'/admin/don/'+product?.don_id"> {{product?.don_id}} </a>
+      </h5>
+
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
     </div>

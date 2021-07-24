@@ -7,11 +7,19 @@
       <h4>Don: {{don.id}}</h4>
 
       <h5>User :
-        <a [routerLink]="'/admin/address/'+user?.id"> {{user?.email}} </a>
+        <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
       </h5>
 
       <h5>Date : {{don.date}}</h5>
       <h5>Coin : {{don.coins_win}}</h5>
+
+      <h4>Product:
+        <ul>
+          <li *ngFor="let product of products;">
+            <a [routerLink]="'/admin/product/'+product?.id"> {{product?.name}} </a>
+          </li>
+        </ul>
+      </h4>
 
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
