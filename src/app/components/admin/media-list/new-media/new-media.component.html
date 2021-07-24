@@ -1,2 +1,37 @@
-<p>new-media works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <br>
+    <h5>Nouveau : Média</h5>
+    <hr>
+    <form *ngIf="mediaTypes.length > 0" [formGroup]="mediaForm" (ngSubmit)="onSubmitForm()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="client_view">Visible par le client : </label>
+        <select id="client_view" class="form-control" formControlName="client_view">
+          <option value="false" selected="selected">Non</option>
+          <option value="true">Oui</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="media_type_id">Visible par le client : </label>
+        <select id="media_type_id" class="form-control" formControlName="media_type_id">
+          <option *ngFor="let mediaType of mediaTypes" [value]="mediaType.id">{{mediaType.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="file">Sélectionner un fichier :</label>
+        <input type="file" id="file" name="file" class="form-control" formControlName="file">
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="mediaForm.invalid">Soumettre</button>
+
+    </form>
+
+  </div>
+</div>
