@@ -42,7 +42,13 @@ export class NewProductComponent implements OnInit {
 
     await this.productFetch();
     this.productService.productsSubject.subscribe(value => {
-      this.products = value;
+      if(value !== undefined) {
+        this.products = value;
+      }
+      else{
+        this.products = [];
+      }
+      console.log(this.products);
     });
     this.productService.emitProduct();
 
