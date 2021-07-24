@@ -33,6 +33,10 @@ export class AuthUserService {
     return this.session !== undefined;
   }
 
+  getSession(){
+    return this.session;
+  }
+
   emitSession() {
     this.sessionSubject.next(this.session);
   }

@@ -26,7 +26,7 @@ export class DonService {
   }
 
   async getAllByUser(id: number){
-    return await this.httpClient.get<Don>(
+    return await this.httpClient.get<Don[]>(
       environment.API_URL + `don/user/${id}`
     ).toPromise();
   }
