@@ -1,6 +1,6 @@
 <div class="container">
   <div class="col-sm-8 col-sm-offset-2">
-    <form *ngIf="entrepots.length>0 " [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
+    <form *ngIf="newProductForm" [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
       <h2>Créer un Produit</h2>
 
       <div class="form-group">
@@ -23,14 +23,13 @@
         <input type="number" id="price" class="form-control" formControlName="price">
       </div>
 
-      <div class="form-group" *ngIf="products.length>0">
+      <div class="form-group">
         <label for="piece_of">Piece of</label>
         <select id="piece_of" class="custom-select" formControlName="piece_of">
           <option value=""></option>
           <option *ngFor="let product of products;" value="{{product.id}}">{{product.name}} S/N: {{product?.serial_number}}</option>
         </select>
       </div>
-      <!--TODO-->
 
       <div class="form-group" >
         <label for="entrepot_id">Entrepot</label>

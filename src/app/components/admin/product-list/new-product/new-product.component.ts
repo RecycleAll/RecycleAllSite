@@ -21,8 +21,6 @@ export class NewProductComponent implements OnInit {
               private router: Router,
               private productService: ProductsService,
               private entrepotService: EntrepotService) {
-
-
   }
 
   async entrepotFetch() {
@@ -56,7 +54,6 @@ export class NewProductComponent implements OnInit {
   }
 
   initForm() {
-
     this.newProductForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
