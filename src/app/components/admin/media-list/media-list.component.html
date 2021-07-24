@@ -1,2 +1,17 @@
-<p>media-list works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <br>
+    <a class="btn btn-primary" routerLink="/admin/new-media">Nouveau : Média</a>
+    <hr>
+    <ul class="list-group">
+      <app-media-item
+        *ngFor="let media of medias"
+        [media] = "media"
+        [mediaType]="getMediaType(media)"
+      ></app-media-item>
+    </ul>
+  </div>
+</div>

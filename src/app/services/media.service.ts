@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Media, MediaCreation} from "../models/media.model";
 import {EMPTY, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {Address} from "../models/address.model";
 import {catchError} from "rxjs/operators";
-import {root} from "rxjs/internal-compatibility";
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +13,14 @@ export class MediaService {
   private medias: Media[] = [];
   public mediasSubject = new Subject<Media[]>();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {
+  }
 
   emitMedia() {
     this.mediasSubject.next(this.medias);
   }
 
-  async getOne(id: number){
+  async getOne(id: number) {
     return await this.httpClient.get<Media>(
       environment.API_URL + `media/${id}`,
     ).toPromise();
@@ -35,7 +34,7 @@ export class MediaService {
       return EMPTY;
     })).toPromise();
 
-    if (promise.status === 200 && promise.body != null){
+    if (promise.status === 200 && promise.body != null) {
       this.medias = promise.body;
     }
     this.emitMedia();
@@ -56,7 +55,7 @@ export class MediaService {
       return EMPTY;
     })).toPromise();
 
-    if (promise.status === 201 && promise.body !== null){
+    if (promise.status === 201 && promise.body !== null) {
       return promise.body;
     }
     return null;
@@ -78,7 +77,7 @@ export class MediaService {
       return EMPTY;
     })).toPromise();
 
-    if (promise.status === 200 && promise.body !== null){
+    if (promise.status === 200 && promise.body !== null) {
       return promise.body;
     }
     return null;

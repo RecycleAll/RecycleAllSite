@@ -1,2 +1,10 @@
-<p>media-item works!</p>
-<!--TODO-->
+<li [ngClass]="{'list-group-item': true}">
+  <h5>ID : {{media.id}}</h5>
+  <h6>Nom : {{media.name}}</h6>
+  <h6>Type de média :
+    <a [routerLink]="'/admin/media-type/' + mediaType.id">
+      {{mediaType.name}}
+    </a>
+  </h6>
+  <a [routerLink]="[mediaType.id]" >Détails</a>
+</li>
