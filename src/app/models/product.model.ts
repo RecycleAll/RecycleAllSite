@@ -5,6 +5,7 @@ export interface ProductCreation{
   price?: number;
   piece_of?: number;
   entrepot_store_id?: number;
+  don_id?: number;
 }
 
 export class Product{
@@ -16,8 +17,9 @@ export class Product{
   price?: number;
   piece_of?: number;
   entrepot_store_id?: number;
+  don_id?: number;
 
-  constructor(id: number, name: string, description: string, serial_number: string, price: number, piece_of: number, entrepot_store_id: number) {
+  constructor(id: number, name: string, description: string, serial_number: string, price: number, piece_of: number, entrepot_store_id: number, don_id: number) {
     this.id = id;
     this.name = name;
     this.description = description;

@@ -23,20 +23,20 @@ export class ProductsService {
   async create(props: ProductCreation){
     return this.httpClient.post<Product>(
       environment.API_URL + "product/",
-      {
-        name: props.name,
-        description: props.description,
-        serial_number: props.serial_number,
-        price: props.price,
-        piece_of: props.piece_of,
-        entrepot_store_id: props.entrepot_store_id
-      }
+      props
     ).toPromise();
   }
 
   async getAll() {
     this.products = await this.httpClient.get<Product[]>(
       environment.API_URL + "product/"
+    ).toPromise();
+    this.emitProduct();
+  }
+
+  async getAllByDon(don_id: number) {
+   return this.products = await this.httpClient.get<Product[]>(
+      environment.API_URL + "product/don/"+don_id
     ).toPromise();
     this.emitProduct();
   }

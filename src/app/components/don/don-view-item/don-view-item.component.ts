@@ -3,7 +3,6 @@ import {User} from "../../../models/user.model";
 import {Don} from "../../../models/don.model";
 import {UserService} from "../../../services/user.service";
 import {Product} from "../../../models/product.model";
-import {DonProductService} from "../../../services/don-product.service";
 import {ProductsService} from "../../../services/products.service";
 
 @Component({
@@ -18,7 +17,6 @@ export class DonViewItemComponent implements OnInit {
 
   @Input() don!: Don;
   constructor(private userService: UserService,
-              private donProductService: DonProductService,
               private productService: ProductsService) {
   }
 
@@ -26,11 +24,7 @@ export class DonViewItemComponent implements OnInit {
     if( this.don.user_id)
       this.user = await this.userService.getOne(this.don.user_id);
 
-    const donProd = await this.donProductService.getAllByDon( this.don.id);
-
-    for(let dp of donProd){
-      this.products.push( await this.productService.getOne(dp.product_id));
-    }
+      this.products = await this.productService.getAllByDon( this.don.id);
   }
 
 

@@ -6,7 +6,6 @@ import {ProductsService} from "../../../services/products.service";
 import {DonService} from "../../../services/don.service";
 import {Session} from "../../../models/session.model";
 import {AuthUserService} from "../../../services/auth-user.service";
-import {DonProductService} from "../../../services/don-product.service";
 
 @Component({
   selector: 'app-don-form',
@@ -25,8 +24,7 @@ export class DonFormComponent implements OnInit {
               private router: Router,
               private productService: ProductsService,
               private authUserSession: AuthUserService,
-              private donService: DonService,
-              private donProductService: DonProductService) {
+              private donService: DonService) {
   }
 
   async productFetch() {
@@ -64,32 +62,6 @@ export class DonFormComponent implements OnInit {
       return //TODO handle error
     }
 
-    let args;
-    if (piece_of) {
-      args = {
-        name,
-        description,
-        serial_number,
-        price,
-        piece_of,
-        entrepot_store_id: entrepot_id
-      }
-    } else {
-      args = {
-        name,
-        description,
-        serial_number,
-        price,
-        entrepot_store_id: entrepot_id
-      }
-    }
-
-    const prod = await this.productService.create(args);
-
-    if(!prod){
-      return //TODO handle error
-    }
-
     const don = await this.donService.create({
       user_id: this.session.user_id,
       coin_win:0,
@@ -100,10 +72,34 @@ export class DonFormComponent implements OnInit {
       return //TODO handle error
     }
 
-    await this.donProductService.create({
-      don_id: don.id,
-      product_id: prod.id
-    })
+    console.log("donId: "+don.id);
+    let args;
+    if (piece_of) {
+      args = {
+        name,
+        description,
+        serial_number,
+        price,
+        piece_of,
+        entrepot_store_id: entrepot_id,
+        don_id:don.id
+      }
+    } else {
+      args = {
+        name,
+        description,
+        serial_number,
+        price,
+        entrepot_store_id: entrepot_id,
+        don_id:don.id
+      }
+    }
+
+    const prod = await this.productService.create(args);
+
+    if(!prod){
+      return //TODO handle error
+    }
 
     this.router.navigate(['/donation']);
   }
