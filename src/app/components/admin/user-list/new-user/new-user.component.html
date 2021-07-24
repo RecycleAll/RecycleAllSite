@@ -4,7 +4,7 @@
   </div>
   <div class="col-10">
     <br>
-    <h5>Nouveau : Média type</h5>
+    <h5>Nouveau : Employee</h5>
     <hr>
     <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
@@ -23,8 +23,8 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" formControlName="password">
       </div>
-      <label for="password">Password</label>
-      <select class="form-group" name="entrepots" id="entrepots" >
+      <label for="entrepots">Entrepot</label>
+      <select class="custom-select" name="entrepots" id="entrepots" >
         <option *ngFor="let entrepot of entrepots;" value="{{entrepot.id}}">{{entrepot.name}} </option>
       </select>
       <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>

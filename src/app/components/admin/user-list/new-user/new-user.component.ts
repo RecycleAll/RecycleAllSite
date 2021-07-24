@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UserService} from "../../../../services/user.service";
 import {AuthUserService} from "../../../../services/auth-user.service";
 import {EntrepotService} from "../../../../services/entrepot.service";
 import {Entrepot} from "../../../../models/entrepot.model";
 import {Subscription} from "rxjs";
-import {User} from "../../../../models/user.model";
 
 @Component({
   selector: 'app-new-user',
@@ -45,7 +43,7 @@ export class NewUserComponent implements OnInit {
       lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
-      entrepots: ['', [Validators.required, Validators.email]]
+      entrepots: ['']
     });
   }
 
@@ -56,10 +54,11 @@ export class NewUserComponent implements OnInit {
       ...value
     });
     if (res !== null) {
-      this.router.navigate(['/admin/media-type']);
+      this.router.navigate(['/admin/user']);
     } else {
       alert("Error of creation");
     }
   }
+
 //todo ça va pas passer du premier coup (onsubmit)
 }
