@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NewMediaComponent implements OnInit {
 
+  // TODO
+
   constructor() { }
 
   ngOnInit(): void {

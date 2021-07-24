@@ -1,2 +1,26 @@
-<p>single-media works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <br>
+    <h4>Media :</h4>
+    <hr>
+    <div class="row">
+      <div class="col-5">
+        <img class="img-thumbnail" [src]="urlImg">
+      </div>
+      <div class="col-5" *ngIf="media !== undefined && mediaType !== undefined">
+          <h5>ID : {{media.id}}</h5>
+          <h6>Nom : {{media.name}}</h6>
+          <h6>Visible par les utilisateur : {{media.client_view}}</h6>
+          <h6>Media type :
+            <a [routerLink]="'/admin/media-type/' + media.media_type_id">{{mediaType.name}}</a>
+          </h6>
+      </div>
+    </div>
+    <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
+    <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+
+  </div>
+</div>
