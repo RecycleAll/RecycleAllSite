@@ -1,2 +1,23 @@
-<p>single-product works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <div class="container-fluid" *ngIf="product !== undefined">
+      <h4>{{product.name}}</h4>
+      <h5>Description : {{product.description}}</h5>
+      <h5>S/N : {{product.description}}</h5>
+      <h5>Price : {{product.price}}</h5>
+      <h5>Part :
+        <a [routerLink]="'/admin/product/'+linkedProduct?.id"> {{linkedProduct?.name}} </a>
+      </h5>
+
+      <h5>Entrepot :
+        <a [routerLink]="'/admin/entrepot/'+entrepot?.id"> {{entrepot?.name}} </a>
+      </h5>
+
+      <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
+      <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+    </div>
+  </div>
+</div>

@@ -48,6 +48,7 @@ export class ProductsService {
   }
 
   async update(props: Product) {
+
     return await this.httpClient.put<Product>(
       environment.API_URL + "product/",
       {
@@ -63,8 +64,11 @@ export class ProductsService {
   }
 
   async delete(id: number) {
-    return await this.httpClient.delete(
-      environment.API_URL + `product/${id}`
+    const promise =  await this.httpClient.delete(
+      environment.API_URL + `product/${id}`,
+      {observe: 'response'}
     ).toPromise();
+
+    return promise.status === 200;
   }
 }

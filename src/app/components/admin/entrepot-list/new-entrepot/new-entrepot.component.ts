@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {EntrepotService} from "../../../../services/entrepot.service";
+import {Address} from "../../../../models/address.model";
+import {AddressService} from "../../../../services/address.service";
 
 @Component({
   selector: 'app-new-entrepot',
@@ -11,12 +13,24 @@ import {EntrepotService} from "../../../../services/entrepot.service";
 export class NewEntrepotComponent implements OnInit {
 
   newEntrepotForm!: FormGroup;
+  address: Address[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              private entrepotService: EntrepotService) { }
+              private entrepotService: EntrepotService,
+              private addressService: AddressService) { }
 
-  ngOnInit(): void {
+  async addressFetch() {
+    await this.addressService.getAll();
+  }
+
+  async ngOnInit() {
+    await this.addressFetch();
+    this.addressService.addressSubject.subscribe(value => {
+      this.address = value;
+    });
+    this.addressService.emitAddress();
+
     this.initForm();
   }
 
@@ -33,11 +47,10 @@ export class NewEntrepotComponent implements OnInit {
     await this.entrepotService.create({
       name,
       isAtelier,
-      address_id:1, //TODO
+      address_id:address,
     });
 
     this.router.navigate(['/admin/entrepot']);
-
   }
 
 }

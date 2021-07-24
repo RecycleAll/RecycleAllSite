@@ -6,6 +6,9 @@
     <div class="container-fluid" *ngIf="entrepot !== undefined">
       <h4>{{entrepot.name}}</h4>
       <h5>Atelier: {{entrepot.isAtelier}}</h5>
+      <h5>Address :
+        <a [routerLink]="'/admin/address/'+address?.id"> {{address?.city}} </a>
+      </h5>
 
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>

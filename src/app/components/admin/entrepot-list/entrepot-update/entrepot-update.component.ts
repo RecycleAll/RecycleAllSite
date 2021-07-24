@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Entrepot} from "../../../../models/entrepot.model";
 import {EntrepotService} from "../../../../services/entrepot.service";
+import {Address} from "../../../../models/address.model";
+import {AddressService} from "../../../../services/address.service";
 
 @Component({
   selector: 'app-entrepot-update',
@@ -13,20 +15,32 @@ export class EntrepotUpdateComponent implements OnInit {
 
   entrepotForm!: FormGroup;
   entrepot!: Entrepot;
+  address: Address[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private entrepotService: EntrepotService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private addressService: AddressService) { }
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
-    await this.initMediaType(id);
-    console.log(this.entrepot);
+    await this.initEntrepot(id);
+
+    await this.addressFetch();
+    this.addressService.addressSubject.subscribe(value => {
+      this.address = value;
+    });
+    this.addressService.emitAddress();
+
     this.initForm();
   }
 
-  async initMediaType(id: number) {
+  async addressFetch() {
+    await this.addressService.getAll();
+  }
+
+  async initEntrepot(id: number) {
     this.entrepot = await this.entrepotService.getOne(id);
   }
 
@@ -41,11 +55,12 @@ export class EntrepotUpdateComponent implements OnInit {
   async onSubmitForm() {
     const {name, isAtelier, address} = this.entrepotForm.value;
 
+    console.log("adr: "+address);
     const res = await this.entrepotService.update({
       id: this.entrepot.id,
       name,
       isAtelier,
-      address_id:1 //TODO
+      address_id:address
     });
 
     if (res !== null){

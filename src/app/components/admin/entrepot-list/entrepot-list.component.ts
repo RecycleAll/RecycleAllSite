@@ -18,8 +18,6 @@ export class EntrepotListComponent implements OnInit {
     this.entrepotService.entrepotSubject.subscribe(
       (entrepots: Entrepot[]) => {
         this.entrepots = entrepots;
-        for( let e of entrepots)
-          console.log("e: "+e.name+"  a: "+e.address_id);
       }
     )
     this.entrepotService.emitEntrepot();

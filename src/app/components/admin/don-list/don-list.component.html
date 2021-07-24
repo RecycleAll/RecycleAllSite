@@ -4,10 +4,8 @@
   </div>
   <div class="col-10">
     <br>
-    <a class="btn btn-primary" routerLink="/admin/new-send">Create : Send</a>
-    <hr>
     <ul class="list-group">
-      <app-send-item *ngFor="let send of sends" [send]="send" > </app-send-item>
+      <app-don-item *ngFor="let don of dons" [don]="don" > </app-don-item>
     </ul>
   </div>
 </div>

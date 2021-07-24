@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Send} from "../../../models/send.model";
+import {SendService} from "../../../services/send.service";
 
 @Component({
   selector: 'app-send-list',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SendListComponent implements OnInit {
 
-  constructor() { }
+  sends: Send[] = []
 
-  ngOnInit(): void {
+  constructor(private sendService: SendService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.sendFetch();
+    this.sendService.sendSubject.subscribe(
+      (sends: Send[]) => {
+        this.sends = sends;
+      }
+    )
+    this.sendService.emitSend();
+  }
+
+  async sendFetch() {
+    await this.sendService.getAll();
   }
 
 }

@@ -3,16 +3,15 @@
     <app-side-bar></app-side-bar>
   </div>
   <div class="col-10">
-    <div class="container-fluid" *ngIf="send !== undefined">
-      <h4>Send: {{send.id}}</h4>
+    <div class="container-fluid" *ngIf="don !== undefined">
+      <h4>Don: {{don.id}}</h4>
 
-      <h5>Address :
-        <a [routerLink]="'/admin/address/'+address?.id"> {{address?.name}} </a>
+      <h5>User :
+        <a [routerLink]="'/admin/address/'+user?.id"> {{user?.email}} </a>
       </h5>
 
-      <h5>Date : {{send.date}}</h5>
-      <h5>Type : {{send.send_type}}</h5>
-      <h5>Status : {{send.status}}</h5>
+      <h5>Date : {{don.date}}</h5>
+      <h5>Coin : {{don.coins_win}}</h5>
 
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>

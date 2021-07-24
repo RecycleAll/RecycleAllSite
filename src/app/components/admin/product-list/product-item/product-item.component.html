@@ -1,2 +1,15 @@
-<p>product-item works!</p>
-<!--TODO-->
+<li [ngClass]="{'list-group-item': true}">
+  <h4>{{product.name}}</h4>
+  <h5>Description : {{product.description}}</h5>
+  <h5>S/N : {{product.description}}</h5>
+  <h5>Price : {{product.price}}</h5>
+  <h5>Part :
+    <a [routerLink]="'/admin/product/'+linkedProduct?.id"> {{linkedProduct?.name}} </a>
+  </h5>
+
+  <h5>Entrepot :
+    <a [routerLink]="'/admin/entrepot/'+entrepot?.id"> {{entrepot?.name}} </a>
+  </h5>
+
+  <a [routerLink]="[product.id]">Détails</a>
+</li>
