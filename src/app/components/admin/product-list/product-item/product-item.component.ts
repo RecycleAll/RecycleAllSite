@@ -26,6 +26,7 @@ export class ProductItemComponent implements OnInit {
 
     if( this.product.piece_of)
       this.linkedProduct = await this.productService.getOne(this.product.piece_of);
+
   }
 
 }

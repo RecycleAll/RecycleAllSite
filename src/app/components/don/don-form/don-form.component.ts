@@ -6,6 +6,7 @@ import {ProductsService} from "../../../services/products.service";
 import {DonService} from "../../../services/don.service";
 import {Session} from "../../../models/session.model";
 import {AuthUserService} from "../../../services/auth-user.service";
+import {DonProductService} from "../../../services/don-product.service";
 
 @Component({
   selector: 'app-don-form',
@@ -24,7 +25,8 @@ export class DonFormComponent implements OnInit {
               private router: Router,
               private productService: ProductsService,
               private authUserSession: AuthUserService,
-              private donService: DonService) {
+              private donService: DonService,
+              private donProductService: DonProductService) {
   }
 
   async productFetch() {
@@ -58,6 +60,10 @@ export class DonFormComponent implements OnInit {
   async onSubmitForm() {
     const {name, description, serial_number, price, piece_of, entrepot_id} = this.newProductForm.value;
 
+    if(!this.session){
+      return //TODO handle error
+    }
+
     let args;
     if (piece_of) {
       args = {
@@ -78,12 +84,26 @@ export class DonFormComponent implements OnInit {
       }
     }
 
-    await this.productService.create(args);
-    await this.donService.create({
-      user_id: this.session?.user_id,
+    const prod = await this.productService.create(args);
+
+    if(!prod){
+      return //TODO handle error
+    }
+
+    const don = await this.donService.create({
+      user_id: this.session.user_id,
       coin_win:0,
       date: new Date()
     });
+
+    if(!don){
+      return //TODO handle error
+    }
+
+    await this.donProductService.create({
+      don_id: don.id,
+      product_id: prod.id
+    })
 
     this.router.navigate(['/donation']);
   }

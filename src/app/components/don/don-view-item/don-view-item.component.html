@@ -2,8 +2,13 @@
 
   <h4>Date: {{don.date}}</h4>
 
-  <h4>Product: TODO</h4>
-  <!-- TODO lien avec le produit-->
+  <h4>Product:</h4>
+  <ul>
+    <li *ngFor="let product of products;">
+      <a [routerLink]="'/admin/product/'+product?.id"> {{product?.name}} </a>
+      <!-- TODO change route pour ne pas aller dans l'admin-->
+    </li>
+  </ul>
 
   <h5>Coin : {{don.coins_win}}</h5>
 

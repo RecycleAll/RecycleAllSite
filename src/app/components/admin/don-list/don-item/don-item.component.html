@@ -8,5 +8,15 @@
     <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
   </h5>
 
+  <h4>Product:
+    <ul>
+    <li *ngFor="let product of products;">
+      <a [routerLink]="'/admin/product/'+product?.id"> {{product?.name}} </a>
+    </li>
+    <!-- TODO faire une lien vers la page du produit-->
+  </ul>
+  </h4>
+
+
   <a [routerLink]="[don.id]">Détails</a>
 </li>
