@@ -1,2 +1,31 @@
-<p>single-ordered works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <div class="container-fluid" *ngIf="send !== undefined">
+      <h4>Order: {{order.id}}</h4>
+
+      <h5>Address :
+        <a [routerLink]="'/admin/address/'+address?.id"> {{address?.name}} </a>
+      </h5>
+
+      <h5>Send :
+        <a [routerLink]="'/admin/send/'+send?.id"> {{send?.id}} </a>
+      </h5>
+
+      <h5>User :
+        <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
+      </h5>
+
+      <h5>Date : {{ order.date}}</h5>
+
+      <h5>Price : {{order.price}}</h5>
+      <h5>Coin : {{order.coins_used}}</h5>
+      <h5>Reduced Price : {{order.price_after_reduce}}</h5>
+
+      <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
+      <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+    </div>
+  </div>
+</div>
