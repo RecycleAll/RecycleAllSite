@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-sm-8 col-sm-offset-2">
-    <form *ngIf="newProductForm && session" [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
-      <h2>Créer un Produit</h2>
+    <form *ngIf="newProductForm " [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
+      <h2>Ajouter votre produit</h2>
 
       <div class="form-group">
         <label for="name">Name</label>
@@ -18,13 +18,47 @@
         <input type="text" id="serial_number" class="form-control" formControlName="serial_number">
       </div>
 
-      <div class="form-group">
-        <label for="piece_of">Piece of</label>
-        <select id="piece_of" class="custom-select" formControlName="piece_of">
-          <option value=""></option>
-          <option *ngFor="let product of products;" value="{{product.id}}">{{product.name}} S/N: {{product?.serial_number}}</option>
-        </select>
+
+      <div class="form-group" >
+        <label>Medias</label>
+
+        <div class="row" *ngFor="let media of mediaItems;">
+          <div class="col">
+            <a > Type: {{media.mediaType.name}} </a>
+          </div>
+          <div class="col">
+            <a > File: {{media.file.name}} </a>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-dark" (click)="removeMedia(media)">remove</button>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-3">
+            <div class="form-group">
+              <label> Type de média : </label>
+              <select id="media_type_id" class="form-control" #t (change)="setMediaType(t.value)" >
+                <option></option>
+                <option *ngFor="let mediaType of mediaTypes" [value]="mediaType.id">{{mediaType.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group">
+              <label for="file">Sélectionner un fichier :</label>
+              <input type="file" id="file" name="file" class="form-control" formControlName="file" (change)="setFileList($event)">
+            </div>
+          </div>
+
+          <div class="col-2">
+            <button type="button" class="btn btn-dark" [disabled]="fileList === null || currentMediaType === undefined" (click)="addMedia()">add file</button>
+          </div>
+        </div>
       </div>
+
 
       <button type="submit" class="btn btn-primary" [disabled]="newProductForm.invalid">Create</button>
     </form>

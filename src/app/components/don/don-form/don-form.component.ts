@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Product} from "../../../models/product.model";
 import {Router} from "@angular/router";
@@ -6,6 +6,16 @@ import {ProductsService} from "../../../services/products.service";
 import {DonService} from "../../../services/don.service";
 import {Session} from "../../../models/session.model";
 import {AuthUserService} from "../../../services/auth-user.service";
+import {MediaType} from "../../../models/media-type.model";
+import {MediaTypeService} from "../../../services/media-type.service";
+import {MediaService} from "../../../services/media.service";
+import {Media} from "../../../models/media.model";
+
+interface MediaItem{
+  mediaType: MediaType;
+  file: File;
+}
+
 
 @Component({
   selector: 'app-don-form',
@@ -15,34 +25,64 @@ import {AuthUserService} from "../../../services/auth-user.service";
 export class DonFormComponent implements OnInit {
 
   newProductForm!: FormGroup;
-  products: Product[] = [];
   product!: Product;
-
   session?: Session;
+
+  fileList: FileList | null = null;
+
+  currentMediaType?: MediaType;
+  mediaTypes: MediaType[] = [];
+  mediaItems: MediaItem[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private productService: ProductsService,
               private authUserSession: AuthUserService,
+              private mediaTypeService: MediaTypeService,
+              private mediaService: MediaService,
               private donService: DonService) {
   }
 
-  async productFetch() {
-    await this.productService.getAll();
-  }
-
   async ngOnInit() {
-    await this.productFetch();
-    this.productService.productsSubject.subscribe(value => {
-        this.products = value;
-    });
-    this.productService.emitProduct();
 
-    if( this.authUserSession.isAuth() ){
+    if (this.authUserSession.isAuth()) {
       this.session = this.authUserSession.getSession();
     }
 
+    await this.mediaTypesFetch();
+    this.mediaTypeService.mediaTypeSubject.subscribe(
+      (mediaTypes: MediaType[]) => {
+        this.mediaTypes = mediaTypes;
+      }
+    );
+    this.mediaTypeService.emitMediaType();
+
     this.initForm();
+  }
+
+  async mediaTypesFetch() {
+    await this.mediaTypeService.getAll();
+  }
+
+  setMediaType(product: string) {
+    const id = Number(product);
+    this.currentMediaType = this.mediaTypes.find(value => value.id === id);
+  }
+
+  addMedia(){
+    if(this.fileList !== null && this.currentMediaType !== undefined) {
+      this.mediaItems.push({
+        file: this.fileList[0],
+        mediaType: this.currentMediaType
+      });
+    }
+  }
+
+  removeMedia(media: MediaItem){
+    const index = this.mediaItems.indexOf(media, 0);
+    if (index > -1) {
+      this.mediaItems.splice(index, 1);
+    }
   }
 
   initForm() {
@@ -50,28 +90,34 @@ export class DonFormComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       serial_number: ['', [Validators.required]],
-      piece_of: [null]
+      piece_of: [null],
+      file: [null]
     });
+  }
+
+  setFileList(event: Event){
+    this.fileList = (event.target as HTMLInputElement).files;
   }
 
   async onSubmitForm() {
     const {name, description, serial_number, piece_of, entrepot_id} = this.newProductForm.value;
 
-    if(!this.session){
+
+    if (!this.session) {
       return //TODO handle error
     }
 
     const don = await this.donService.create({
       user_id: this.session.user_id,
-      coin_win:0,
+      coin_win: 0,
       date: new Date()
     });
 
-    if(!don){
+    console.log("don: " +don);
+    if (!don) {
       return //TODO handle error
     }
 
-    console.log("donId: "+don.id);
     let args;
     if (piece_of) {
       args = {
@@ -81,7 +127,7 @@ export class DonFormComponent implements OnInit {
         price: undefined,
         piece_of,
         entrepot_store_id: entrepot_id,
-        don_id:don.id
+        don_id: don.id
       }
     } else {
       args = {
@@ -90,14 +136,41 @@ export class DonFormComponent implements OnInit {
         serial_number,
         price: undefined,
         entrepot_store_id: entrepot_id,
-        don_id:don.id
+        don_id: don.id
       }
     }
 
     const prod = await this.productService.create(args);
-
-    if(!prod){
+    console.log("test"+prod);
+    if (!prod) {
       return //TODO handle error
+    }
+
+    console.log("test: "+this.mediaItems);
+    for(let mediaItem of this.mediaItems){
+      console.log("posting: "+mediaItem.file.name);
+      const res = await this.mediaService.create({
+        name: mediaItem.file.name,
+        client_view: true,
+        path: undefined,
+        media_type_id: mediaItem.mediaType.id,
+        user_save: 1,
+        mimetype: undefined
+      });
+
+      if (res == null){
+        alert("Error of creation");
+        return;
+      }
+
+      const resFile = await this.mediaService.uploadFile(mediaItem.file, res.id);
+
+      if (!resFile) {
+        return //TODO handle error
+      }
+
+      //TODO update ProductMedia
+
     }
 
     this.router.navigate(['/donation']);
