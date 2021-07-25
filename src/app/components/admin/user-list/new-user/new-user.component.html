@@ -25,10 +25,10 @@
       </div>
       <label for="entrepots">Entrepot</label>
       <select class="custom-select" name="entrepots" id="entrepots" >
+        <option value=""></option>
         <option *ngFor="let entrepot of entrepots;" value="{{entrepot.id}}">{{entrepot.name}} </option>
       </select>
       <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
     </form>
   </div>
 </div>
-<!--TODO-->

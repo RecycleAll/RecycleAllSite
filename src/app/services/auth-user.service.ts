@@ -5,6 +5,7 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
 import {catchError} from "rxjs/operators";
+import {Don} from "../models/don.model";
 
 export interface UserClientCreationProps {
   firstname: string;
@@ -85,7 +86,7 @@ export class AuthUserService {
 
 
   async register(props: UserAdminCreationProps) {
-    this.httpClient.post<any>(
+    const promise = await this.httpClient.post<User>(
       environment.API_URL + "auth/register",
       {
         firstname: props.firstname,
@@ -93,14 +94,12 @@ export class AuthUserService {
         email: props.email,
         password: props.password,
         work_id: props.work_in
-      }
-    ).subscribe(
-      response => {
-        console.log("new user : ", response)
-      }, error => {
-        console.log("Error : ", error)
-      }
-    );
+      },
+      {observe: "response"}
+    ).pipe(catchError(() => {
+      return EMPTY;
+    })).toPromise();
+    return promise.status == 201;
   }
 
   logOut() {
