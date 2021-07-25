@@ -9,13 +9,11 @@ import {AuthUserService} from "../../../services/auth-user.service";
 import {MediaType} from "../../../models/media-type.model";
 import {MediaTypeService} from "../../../services/media-type.service";
 import {MediaService} from "../../../services/media.service";
-import {Media} from "../../../models/media.model";
 
 interface MediaItem{
   mediaType: MediaType;
   file: File;
 }
-
 
 @Component({
   selector: 'app-don-form',

@@ -5,6 +5,16 @@ import {ProductsService} from "../../../../services/products.service";
 import {Entrepot} from "../../../../models/entrepot.model";
 import {EntrepotService} from "../../../../services/entrepot.service";
 import {Product} from "../../../../models/product.model";
+import {MediaType} from "../../../../models/media-type.model";
+import {MediaService} from "../../../../services/media.service";
+import {Media} from "../../../../models/media.model";
+import {MediaTypeService} from "../../../../services/media-type.service";
+
+interface MediaItem{
+  mediaType?: MediaType;
+  file?: File;
+  media?: Media;
+}
 
 @Component({
   selector: 'app-new-product',
@@ -17,9 +27,18 @@ export class NewProductComponent implements OnInit {
   entrepots: Entrepot[] = [];
   products: Product[] = [];
 
+  fileList: FileList | null = null;
+  currentMediaType?: MediaType;
+  currentMedia?: Media;
+  mediaTypes: MediaType[] = [];
+  mediaItems: MediaItem[] = [];
+  medias: Media[] = [];
+
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private productService: ProductsService,
+              private mediaService: MediaService,
+              private mediaTypeService: MediaTypeService,
               private entrepotService: EntrepotService) {
   }
 
@@ -31,7 +50,29 @@ export class NewProductComponent implements OnInit {
     await this.productService.getAll();
   }
 
+  async mediaFetch() {
+    await this.mediaService.getAll();
+  }
+
+  async mediaTypesFetch() {
+    await this.mediaTypeService.getAll();
+  }
+
   async ngOnInit() {
+    await this.mediaFetch();
+    this.mediaService.mediasSubject.subscribe(value => {
+      this.medias = value;
+    });
+    this.mediaService.emitMedia();
+
+    await this.mediaTypesFetch();
+    this.mediaTypeService.mediaTypeSubject.subscribe(
+      (mediaTypes: MediaType[]) => {
+        this.mediaTypes = mediaTypes;
+      }
+    );
+    this.mediaTypeService.emitMediaType();
+
     await this.entrepotFetch();
     this.entrepotService.entrepotSubject.subscribe(value => {
       this.entrepots = value;
@@ -51,6 +92,44 @@ export class NewProductComponent implements OnInit {
     this.productService.emitProduct();
 
     this.initForm();
+  }
+
+  setMediaType(mediaTypeID: string) {
+    const id = Number(mediaTypeID);
+    this.currentMediaType = this.mediaTypes.find(value => value.id === id);
+  }
+
+  setMedia(mediaID: string){
+    const id = Number(mediaID);
+    this.currentMedia = this.medias.find(value => value.id === id);
+    console.log("media: "+this.currentMedia+" id: "+mediaID+"  "+id);
+  }
+
+  addMedia(){
+    if(this.fileList !== null && this.currentMediaType !== undefined) {
+      this.mediaItems.push({
+        file: this.fileList[0],
+        mediaType: this.currentMediaType
+      });
+    }
+  }
+
+  addMedia2(){
+    this.mediaItems.push({
+      mediaType: this.mediaTypes.find(value => value.id == this.currentMedia?.media_type_id),
+      media: this.currentMedia
+    });
+  }
+
+  removeMedia(media: MediaItem){
+    const index = this.mediaItems.indexOf(media, 0);
+    if (index > -1) {
+      this.mediaItems.splice(index, 1);
+    }
+  }
+
+  setFileList(event: Event){
+    this.fileList = (event.target as HTMLInputElement).files;
   }
 
   initForm() {
@@ -87,7 +166,47 @@ export class NewProductComponent implements OnInit {
       }
     }
 
-    await this.productService.create(args);
+    const prod = await this.productService.create(args);
+
+    if(!prod){
+      alert("Can't create Donation")
+      return
+    }
+
+    console.log("test: "+this.mediaItems);
+    for(let mediaItem of this.mediaItems){
+
+      if(mediaItem.file && mediaItem.mediaType) {
+        console.log("posting: " + mediaItem.file.name);
+        const res = await this.mediaService.create({
+          name: mediaItem.file.name,
+          client_view: true,
+          path: undefined,
+          media_type_id: mediaItem.mediaType.id,
+          user_save: 1,
+          mimetype: undefined
+        });
+
+        if (res == null) {
+          alert("Error of creation");
+          return;
+        }
+
+        const resFile = await this.mediaService.uploadFile(mediaItem.file, res.id);
+
+        if (!resFile) {
+
+          alert("Can't upload file")
+          return
+        }
+        //TODO update ProductMedia
+
+      }else{
+        //TODO update ProductMedia
+
+      }
+
+    }
 
     this.router.navigate(['/admin/product']);
   }

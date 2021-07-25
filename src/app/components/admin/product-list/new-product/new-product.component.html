@@ -42,6 +42,59 @@
         </select>
       </div>
 
+      <div class="form-group" >
+        <label>Medias</label>
+
+        <div class="row" *ngFor="let media of mediaItems;">
+
+          <div class="col">
+            <a > Type: {{media.mediaType?.name}} </a>
+          </div>
+          <div class="col">
+            <a > File: {{media.file?.name}}{{media.media?.name}}  </a>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-dark" (click)="removeMedia(media)">remove</button>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-3">
+            <div class="form-group">
+              <label> Type de média : </label>
+              <select id="media_type_id" class="form-control" #t (change)="setMediaType(t.value)" >
+                <option></option>
+                <option *ngFor="let mediaType of mediaTypes" [value]="mediaType.id">{{mediaType.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group">
+              <label for="file">Sélectionner un fichier :</label>
+              <input type="file" id="file" name="file" class="form-control" (change)="setFileList($event)">
+            </div>
+          </div>
+
+          <div class="col-2">
+            <button type="button" class="btn btn-dark" [disabled]="fileList === null || currentMediaType === undefined" (click)="addMedia()">add file</button>
+          </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+              <select class="form-control" #d (change)="setMedia(d.value)" >
+                <option></option>
+                <option *ngFor="let media of medias" [value]="media.id">{{media.name}}</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <button type="button" class="btn btn-dark" [disabled]="currentMedia === undefined" (click)="addMedia2()">add file</button>
+            </div>
+        </div>
+
+      </div>
+
       <button type="submit" class="btn btn-primary" [disabled]="newProductForm.invalid">Create</button>
     </form>
   </div>
