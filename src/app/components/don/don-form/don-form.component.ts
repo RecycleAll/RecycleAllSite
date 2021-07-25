@@ -58,7 +58,7 @@ export class DonFormComponent implements OnInit {
     const {name, description, serial_number, piece_of, entrepot_id} = this.newProductForm.value;
 
     if(!this.session){
-      return //TODO handle error
+      return
     }
 
     const don = await this.donService.create({
@@ -68,7 +68,8 @@ export class DonFormComponent implements OnInit {
     });
 
     if(!don){
-      return //TODO handle error
+      alert("Can't create Donation")
+      return
     }
 
     console.log("donId: "+don.id);
@@ -97,7 +98,9 @@ export class DonFormComponent implements OnInit {
     const prod = await this.productService.create(args);
 
     if(!prod){
-      return //TODO handle error
+      await this.donService.delete(don.id)
+      alert("Can't create Donation")
+      return
     }
 
     this.router.navigate(['/donation']);

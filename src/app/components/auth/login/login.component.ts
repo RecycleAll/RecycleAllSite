@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UserLogInProps} from "../../../models/user.model";
 import {AuthUserService} from "../../../services/auth-user.service";
 
 @Component({
@@ -16,7 +15,8 @@ export class LoginComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private authUser: AuthUserService
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
       .catch((error) => {
         console.log("Error")
       });
-    if (isAuth){
+    if (isAuth) {
       this.authUser.emitSession();
       this.router.navigate(['/profil']);
     } else {
