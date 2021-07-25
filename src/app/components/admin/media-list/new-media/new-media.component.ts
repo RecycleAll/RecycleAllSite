@@ -41,7 +41,9 @@ export class NewMediaComponent implements OnInit {
       name: ['', Validators.required],
       client_view: ['', Validators.required],
       media_type_id: ['', Validators.required],
-      file: []
+      file: [null, Validators.required],
+      fileSource: ['', Validators.required]
+
     });
   }
 
@@ -49,9 +51,48 @@ export class NewMediaComponent implements OnInit {
     await this.mediaTypeService.getAll();
   }
 
+  uploadFile(event: Event) {
+
+    // @ts-ignore
+    const file = (event.target as HTMLInputElement).files[0];
+    this.mediaForm.patchValue({
+      fileSource: file
+    });
+
+  }
+
   async onSubmitForm() {
     console.log(this.mediaForm.value);
     console.log("file : ", this.mediaForm.value.file);
+    console.log("file : ", this.mediaForm.value.fileSource);
+
+    const {name, client_view, media_type_id} = this.mediaForm.value;
+    let file = this.mediaForm.value.fileSource;
+    // if (this.mediaForm.get('fileSource') !== undefined){
+    //   file = this.mediaForm.value.fileSource;
+    // }
+
+    const res = await this.mediaService.create({
+      name,
+      client_view,
+      path: undefined,
+      media_type_id,
+      user_save: 1,
+      mimetype: undefined
+    });
+
+    if (res == null){
+      alert("Error of creation");
+      return;
+    }
+
+    const resFile = await this.mediaService.uploadFile(file, res.id);
+
+    if (resFile !== null) {
+      this.router.navigate(['/admin/media']);
+    }else{
+      alert("Error of upload");
+    }
   }
 
 }

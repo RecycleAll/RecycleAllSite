@@ -61,15 +61,15 @@ export class MediaService {
     return null;
   }
 
-  async uploadFile(file: string, id: number){
+  async uploadFile(file: File, id: number){
     const formData: FormData = new FormData();
     formData.append("uploaded_file", file);
-    formData.append("id", id.toString())
+    formData.append("id", id.toString());
 
     const promise = await this.httpClient.post<Media>(
       environment.API_URL + 'media/file',
       formData,
-      {observe: 'response'}
+      {observe: 'response'},
     ).pipe(catchError(() => {
       return EMPTY;
     })).toPromise();
