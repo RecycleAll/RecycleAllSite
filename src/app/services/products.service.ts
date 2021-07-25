@@ -35,10 +35,9 @@ export class ProductsService {
   }
 
   async getAllAvailable() {
-    let products = (await this.httpClient.get<Product[]>(
+    return (await this.httpClient.get<Product[]>(
       environment.API_URL + "product/"
     ).toPromise()).filter(value => value.order_id === undefined && value.entrepot_store_id !== undefined && value.price !== undefined);
-    this.emitProduct();
   }
 
   async getAllByDon(don_id: number) {
