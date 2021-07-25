@@ -22,6 +22,11 @@
 
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
+
+      <div class="col">
+        <img *ngFor="let media of mediaProducts" class="img-thumbnail" [src]="mediaPath+media.media_id">
+      </div>
+
     </div>
   </div>
 </div>

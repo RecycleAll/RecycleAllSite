@@ -4,6 +4,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../../../../services/products.service";
 import {Entrepot} from "../../../../models/entrepot.model";
 import {EntrepotService} from "../../../../services/entrepot.service";
+import {MediaProductService} from "../../../../services/media-product.service";
+import {environment} from "../../../../../environments/environment";
+import {MediaProduct} from "../../../../models/mediaProduct.model";
 
 @Component({
   selector: 'app-single-product',
@@ -16,26 +19,37 @@ export class SingleProductComponent implements OnInit {
   entrepot?: Entrepot;
   linkedProduct?: Product;
 
+  mediaProducts: MediaProduct[] = [];
+  mediaPath = environment.API_URL + "media/file/";
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private entrepotService: EntrepotService,
-              private productService: ProductsService
+              private productService: ProductsService,
+              private mediaProductService: MediaProductService
   ) {
   }
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
     await this.initProduct(id);
+  }
+
+  async initProduct(id: number) {
+    this.product = await this.productService.getOne(id);
 
     if( this.product.entrepot_store_id)
       this.entrepot = await this.entrepotService.getOne(this.product.entrepot_store_id);
 
     if( this.product.piece_of)
       this.linkedProduct = await this.productService.getOne(this.product.piece_of);
-  }
 
-  async initProduct(id: number) {
-    this.product = await this.productService.getOne(id);
+    const tmp = await this.mediaProductService.getAllByProduct(this.product.id);
+    if(tmp){
+      this.mediaProducts = tmp;
+    }else{
+      this.mediaProducts = [];
+    }
   }
 
   onUpdate() {

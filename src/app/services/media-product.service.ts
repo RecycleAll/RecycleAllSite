@@ -4,6 +4,7 @@ import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 import {EMPTY} from "rxjs";
+import {Media} from "../models/media.model";
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,7 @@ export class MediaProductService {
       return EMPTY;
     })).toPromise();
 
-    if (promise.status === 201 && promise.body !== null){
+    if (promise.status === 200 && promise.body !== null){
       return promise.body;
     }
     return null;

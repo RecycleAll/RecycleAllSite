@@ -5,8 +5,8 @@ export interface MediaProductCreation {
 
 export class MediaProduct {
   id: number;
-  media_id?: number;
-  product_id?: number;
+  media_id: number;
+  product_id: number;
 
   constructor(id: number, media_id: number, product_id: number) {
     this.id = id;

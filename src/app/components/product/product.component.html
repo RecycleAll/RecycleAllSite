@@ -10,6 +10,10 @@
         <a [routerLink]="'/product/'+linkedProduct.id"> {{linkedProduct.name}} </a>
       </h5>
 
+      <div class="col">
+        <img *ngFor="let media of mediaProducts" class="img-thumbnail" [src]="mediaPath+media.media_id">
+      </div>
+
     </div>
   </div>
 </div>
