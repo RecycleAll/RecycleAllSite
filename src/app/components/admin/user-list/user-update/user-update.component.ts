@@ -51,7 +51,7 @@ export class UserUpdateComponent implements OnInit {
       lastname: [this.user.lastname, [Validators.required]],
       email: [this.user.email, [Validators.required, Validators.email]],
       newpassword: ['', [Validators.pattern(/[0-9a-zA-Z]{6,}/)]],
-      entrepots: ['']
+      entrepots: [this.user.work_in]
     });
   }
 
@@ -61,7 +61,6 @@ export class UserUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     let {firstname, lastname, email, newpassword, entrepots} = this.userForm.value;
-    console.log(this.user.email)
     if (newpassword !== '') {
       const res = await this.authUser.update({
         id: this.user.id,

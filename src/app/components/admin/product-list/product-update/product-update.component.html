@@ -1,5 +1,8 @@
-<div class="container">
-  <div class="col-sm-8 col-sm-offset-2">
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
     <form *ngIf="entrepots.length>0 && products.length>0" [formGroup]="productForm" (ngSubmit)="onSubmitForm()">
       <h2>Update un Produit</h2>
 

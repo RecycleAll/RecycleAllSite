@@ -30,6 +30,7 @@ export class NewUserComponent implements OnInit {
         this.entrepots = entrepots;
       }
     )
+    console.log(this.entrepots)
     this.entrepotService.emitEntrepot();
   }
 
@@ -48,10 +49,13 @@ export class NewUserComponent implements OnInit {
   }
 
   async onSubmitForm() {
-    const value = this.userForm.value;
-    // console.log(name);
+    const {firstname,lastname,email,password ,entrepots} = this.userForm.value;
     const res = await this.authUser.register({
-      ...value
+      firstname,
+      lastname,
+      email,
+      password,
+      work_in: entrepots
     });
     if (res) {
       this.router.navigate(['/admin/user']);
