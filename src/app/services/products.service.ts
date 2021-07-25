@@ -34,11 +34,23 @@ export class ProductsService {
     this.emitProduct();
   }
 
+  async getAllAvailable() {
+    let products = (await this.httpClient.get<Product[]>(
+      environment.API_URL + "product/"
+    ).toPromise()).filter(value => value.order_id === undefined && value.entrepot_store_id !== undefined && value.price !== undefined);
+    this.emitProduct();
+  }
+
   async getAllByDon(don_id: number) {
-   return this.products = await this.httpClient.get<Product[]>(
+   return await this.httpClient.get<Product[]>(
       environment.API_URL + "product/don/"+don_id
     ).toPromise();
-    this.emitProduct();
+  }
+
+  async getAllByOrder(order_id: number) {
+    return await this.httpClient.get<Product[]>(
+      environment.API_URL + "product/order/"+order_id
+    ).toPromise();
   }
 
   async getOne(id: number) {

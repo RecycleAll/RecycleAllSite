@@ -50,13 +50,12 @@ export class DonFormComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       serial_number: ['', [Validators.required]],
-      price: ['', [Validators.required]],
       piece_of: [null]
     });
   }
 
   async onSubmitForm() {
-    const {name, description, serial_number, price, piece_of, entrepot_id} = this.newProductForm.value;
+    const {name, description, serial_number, piece_of, entrepot_id} = this.newProductForm.value;
 
     if(!this.session){
       return //TODO handle error
@@ -79,7 +78,7 @@ export class DonFormComponent implements OnInit {
         name,
         description,
         serial_number,
-        price,
+        price: undefined,
         piece_of,
         entrepot_store_id: entrepot_id,
         don_id:don.id
@@ -89,7 +88,7 @@ export class DonFormComponent implements OnInit {
         name,
         description,
         serial_number,
-        price,
+        price: undefined,
         entrepot_store_id: entrepot_id,
         don_id:don.id
       }

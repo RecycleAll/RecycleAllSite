@@ -8,6 +8,8 @@ import {Ordered} from "../../../../models/ordered.model";
 import {OrderedService} from "../../../../services/ordered.service";
 import {UserService} from "../../../../services/user.service";
 import {User} from "../../../../models/user.model";
+import {Product} from "../../../../models/product.model";
+import {ProductsService} from "../../../../services/products.service";
 
 @Component({
   selector: 'app-single-ordered',
@@ -19,6 +21,7 @@ export class SingleOrderedComponent implements OnInit {
   address?: Address;
   send?: Send;
   user?: User;
+  products: Product[] = [];
 
   @Input() order!: Ordered;
   constructor(private router: Router,
@@ -26,7 +29,8 @@ export class SingleOrderedComponent implements OnInit {
               private orderedService: OrderedService,
               private addressService: AddressService,
               private sendService: SendService,
-              private userService:UserService) {
+              private userService:UserService,
+              private productService: ProductsService) {
   }
 
   async ngOnInit() {
@@ -41,6 +45,8 @@ export class SingleOrderedComponent implements OnInit {
 
     if (this.order.user_id)
       this.user = await this.userService.getOne(this.order.user_id);
+
+    this.products = await  this.productService.getAllByOrder(this.order.id);
 
   }
 

@@ -3,7 +3,7 @@
     <app-side-bar></app-side-bar>
   </div>
   <div class="col-10">
-    <div class="container-fluid" *ngIf="send !== undefined">
+    <div class="container-fluid" *ngIf="order !== undefined">
       <h4>Order: {{order.id}}</h4>
 
       <h5>Address :
@@ -23,6 +23,13 @@
       <h5>Price : {{order.price}}</h5>
       <h5>Coin : {{order.coins_used}}</h5>
       <h5>Reduced Price : {{order.price_after_reduce}}</h5>
+
+      <h5>Product:</h5>
+        <ul>
+          <li *ngFor="let product of products;">
+            <a [routerLink]="'/admin/product/'+product?.id"> {{product?.name}} </a>
+          </li>
+        </ul>
 
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Modifier</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
