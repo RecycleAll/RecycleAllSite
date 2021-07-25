@@ -13,7 +13,7 @@
     <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
   </h5>
 
-  <h5>Date : {{ ordered.date}}</h5>
+  <h5>Date : {{ ordered.date | date:'YYYY-MM-dd HH:mm' }}</h5>
 
   <a [routerLink]="[ordered.id]">Détails</a>
 </li>

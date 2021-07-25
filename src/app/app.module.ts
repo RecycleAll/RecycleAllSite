@@ -71,6 +71,8 @@ import { SingleDonComponent } from './components/admin/don-list/single-don/singl
 import { DonUpdateComponent } from './components/admin/don-list/don-update/don-update.component';
 import { DonItemComponent } from './components/admin/don-list/don-item/don-item.component';
 import { DonViewItemComponent } from './components/don/don-view-item/don-view-item.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -203,4 +205,8 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeFr, 'fr');
+  }
+}

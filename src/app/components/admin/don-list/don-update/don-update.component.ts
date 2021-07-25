@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {formatDate} from "@angular/common";
 import {Don} from "../../../../models/don.model";
 import {User} from "../../../../models/user.model";
 import {DonService} from "../../../../services/don.service";
 import {UserService} from "../../../../services/user.service";
+import {dateToStringForms} from "../../../../utils/dateutils";
 
 @Component({
   selector: 'app-don-update',
@@ -49,7 +49,7 @@ export class DonUpdateComponent implements OnInit {
   initForm() {
     this.donForm = this.formBuilder.group({
       user: [this.don.user_id, [Validators.required]],
-      date: [this.don.date, [Validators.required]],
+      date: [dateToStringForms(this.don.date), [Validators.required]],
       coin: [this.don.coins_win, [Validators.required]],
     });
   }

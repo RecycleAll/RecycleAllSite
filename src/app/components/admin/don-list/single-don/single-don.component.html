@@ -10,7 +10,7 @@
         <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
       </h5>
 
-      <h5>Date : {{don.date}}</h5>
+      <h5>Date : {{don.date | date:'YYYY-MM-dd HH:mm' }}</h5>
       <h5>Coin : {{don.coins_win}}</h5>
 
       <h4>Product:

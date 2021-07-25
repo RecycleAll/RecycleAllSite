@@ -18,7 +18,7 @@
         <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
       </h5>
 
-      <h5>Date : {{ order.date}}</h5>
+      <h5>Date : {{ order.date | date:'YYYY-MM-dd HH:mm'}}</h5>
 
       <h5>Price : {{order.price}}</h5>
       <h5>Coin : {{order.coins_used}}</h5>

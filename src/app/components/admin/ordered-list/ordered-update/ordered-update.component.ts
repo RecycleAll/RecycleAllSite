@@ -11,6 +11,8 @@ import {UserService} from "../../../../services/user.service";
 import {OrderedService} from "../../../../services/ordered.service";
 import {Product} from "../../../../models/product.model";
 import {ProductsService} from "../../../../services/products.service";
+import {formatDate} from "@angular/common";
+import {dateToStringForms} from "../../../../utils/dateutils";
 
 @Component({
   selector: 'app-ordered-update',
@@ -94,20 +96,20 @@ export class OrderedUpdateComponent implements OnInit {
       price: [this.order.price, [Validators.required]],
       reducedPrice: [this.order.price_after_reduce, [Validators.required]],
       coin: [this.order.coins_used, [Validators.required]],
-      date: [this.order.date, [Validators.required]],
+      date: [dateToStringForms(this.order.date), [Validators.required]],
     });
   }
 
-  selectProduct(product: string){
+  selectProduct(product: string) {
     const id = Number(product);
     this.currentProduct = this.availableProducts.find(value => value.id === id);
 
-    if(this.currentProduct === undefined)
+    if (this.currentProduct === undefined)
       this.currentProduct = this.removedProduct.find(value => value.id === id);
   }
 
-  addProduct(){
-    if(!this.currentProduct){
+  addProduct() {
+    if (!this.currentProduct) {
       return;
     }
     let index = this.availableProducts.indexOf(this.currentProduct, 0);
@@ -124,8 +126,8 @@ export class OrderedUpdateComponent implements OnInit {
     }
   }
 
-  removeProduct(product: Product){
-    console.log("removeProduct: "+product.name);
+  removeProduct(product: Product) {
+    console.log("removeProduct: " + product.name);
     let index = this.selectedProduct.indexOf(product, 0);
     if (index > -1) {
       this.selectedProduct.splice(index, 1);
@@ -142,22 +144,22 @@ export class OrderedUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     let {address, date, send, user, price, reducedPrice, coin} = this.orderForm.value;
-    console.log("date: "+date);
+    console.log("date: " + date);
 
-    const res = await this.orderedService.update( {
+    const res = await this.orderedService.update({
       id: this.order.id,
-      billing_address:address,
+      billing_address: address,
       date,
-      coins_used:coin,
-      price_after_reduce:reducedPrice,
-      user_id:user,
-      send_id:send,
+      coins_used: coin,
+      price_after_reduce: reducedPrice,
+      user_id: user,
+      send_id: send,
       price
     });
 
-    if (res !== null){
+    if (res !== null) {
 
-      for(let prod of this.removedProduct){
+      for (let prod of this.removedProduct) {
         await this.productService.update({
           id: prod.id,
           name: prod.name,
@@ -170,7 +172,7 @@ export class OrderedUpdateComponent implements OnInit {
         });
       }
 
-      for(let prod of this.addedProduct){
+      for (let prod of this.addedProduct) {
         await this.productService.update({
           id: prod.id,
           name: prod.name,
@@ -184,7 +186,7 @@ export class OrderedUpdateComponent implements OnInit {
       }
 
       this.router.navigate(['/admin/ordered']);
-    }else{
+    } else {
       alert("Error of update");
     }
   }

@@ -6,6 +6,8 @@ import {Address} from "../../../../models/address.model";
 import {SendService} from "../../../../services/send.service";
 import {AddressService} from "../../../../services/address.service";
 import {formatDate} from "@angular/common";
+import {dateToStringForms} from "../../../../utils/dateutils";
+
 
 @Component({
   selector: 'app-send-update',
@@ -22,7 +24,8 @@ export class SendUpdateComponent implements OnInit {
               private sendService: SendService,
               private addressService: AddressService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router) {
+  }
 
 
   async addressFetch() {
@@ -49,7 +52,7 @@ export class SendUpdateComponent implements OnInit {
   initForm() {
     this.sendForm = this.formBuilder.group({
       address: [this.send.delivery_address, [Validators.required]],
-      date: [formatDate(this.send.date, 'yyyy/MM/dd', 'en'), [Validators.required]],
+      date: [dateToStringForms(this.send.date), [Validators.required]],
       type: [this.send.send_type, [Validators.required]],
       status: [this.send.status, [Validators.required]]
     });
