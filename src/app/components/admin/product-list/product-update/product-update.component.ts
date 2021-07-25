@@ -5,6 +5,15 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../../../../services/products.service";
 import {Entrepot} from "../../../../models/entrepot.model";
 import {EntrepotService} from "../../../../services/entrepot.service";
+import {Media} from "../../../../models/media.model";
+import {MediaType} from "../../../../models/media-type.model";
+
+
+interface MediaItem{
+  mediaType?: MediaType;
+  file?: File;
+  media?: Media;
+}
 
 @Component({
   selector: 'app-product-update',
@@ -17,6 +26,12 @@ export class ProductUpdateComponent implements OnInit {
   product!: Product;
   entrepots: Entrepot[] = [];
   products: Product[] = [];
+
+  allMedia: Media[] = [];
+  linkedMedia: Media[] = [];
+
+  addedMedia: MediaItem[] = [];
+  removedMedia: Media[] = [];
 
   constructor(private formBuilder: FormBuilder,
               private productService: ProductsService,
