@@ -5,6 +5,8 @@ import {Subscription} from "rxjs";
 import {MediaTypeService} from "../../../../services/media-type.service";
 import {MediaService} from "../../../../services/media.service";
 import {Router} from "@angular/router";
+import {AuthUserService} from "../../../../services/auth-user.service";
+import {Session} from "../../../../models/session.model";
 
 @Component({
   selector: 'app-new-media',
@@ -19,10 +21,14 @@ export class NewMediaComponent implements OnInit {
   mediaTypes: MediaType[] = [];
   mediaTypesSubscription!: Subscription;
 
+  authSubscription!: Subscription;
+  activeSession!: Session;
+
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private mediaTypeService: MediaTypeService,
-              private mediaService: MediaService) { }
+              private mediaService: MediaService,
+              private authUserService: AuthUserService) { }
 
   async ngOnInit(): Promise<void> {
     await this.mediaTypesFetch();
@@ -32,8 +38,17 @@ export class NewMediaComponent implements OnInit {
       }
     );
     this.mediaTypeService.emitMediaType();
-
+    this.initSession();
     this.initForm();
+  }
+
+  initSession() {
+    this.authSubscription = this.authUserService.sessionSubject.subscribe(
+      (session: Session) => {
+        this.activeSession = session
+      }
+    );
+    this.authUserService.emitSession();
   }
 
   initForm() {
@@ -62,22 +77,27 @@ export class NewMediaComponent implements OnInit {
   }
 
   async onSubmitForm() {
-    console.log(this.mediaForm.value);
-    console.log("file : ", this.mediaForm.value.file);
-    console.log("file : ", this.mediaForm.value.fileSource);
+    // console.log(this.mediaForm.value);
+    // console.log("file : ", this.mediaForm.value.file);
+    // console.log("file : ", this.mediaForm.value.fileSource);
+
+    let user_save = 0;
+    if (this.activeSession !== undefined && this.activeSession.user_id !== undefined){
+      user_save = this.activeSession.user_id;
+    }else{
+      alert("Error : user not connected");
+      return;
+    }
 
     const {name, client_view, media_type_id} = this.mediaForm.value;
     let file = this.mediaForm.value.fileSource;
-    // if (this.mediaForm.get('fileSource') !== undefined){
-    //   file = this.mediaForm.value.fileSource;
-    // }
 
     const res = await this.mediaService.create({
       name,
       client_view,
       path: undefined,
       media_type_id,
-      user_save: 1,
+      user_save,
       mimetype: undefined
     });
 
