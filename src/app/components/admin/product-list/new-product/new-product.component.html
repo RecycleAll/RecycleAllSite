@@ -1,2 +1,48 @@
-<p>new-product works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <form *ngIf="newProductForm" [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
+      <h2>Créer un Produit</h2>
+
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" class="form-control" formControlName="name">
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" id="description" class="form-control" formControlName="description">
+      </div>
+
+      <div class="form-group">
+        <label for="serial_number">S/N</label>
+        <input type="text" id="serial_number" class="form-control" formControlName="serial_number">
+      </div>
+
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" class="form-control" formControlName="price">
+      </div>
+
+      <div class="form-group">
+        <label for="piece_of">Piece of</label>
+        <select id="piece_of" class="custom-select" formControlName="piece_of">
+          <option value=""></option>
+          <option *ngFor="let product of products;" value="{{product.id}}">{{product.name}} S/N: {{product?.serial_number}}</option>
+        </select>
+      </div>
+
+      <div class="form-group" >
+        <label for="entrepot_id">Entrepot</label>
+        <select id="entrepot_id" class="custom-select" formControlName="entrepot_id">
+          <option value=""></option>
+          <option *ngFor="let entrepot of entrepots;" value="{{entrepot.id}}">{{entrepot.name}} </option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary" [disabled]="newProductForm.invalid">Create</button>
+    </form>
+  </div>
+</div>

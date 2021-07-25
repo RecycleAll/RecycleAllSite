@@ -66,6 +66,13 @@ import { OrderedItemComponent } from './components/admin/ordered-list/ordered-it
 import { MediaItemComponent } from './components/admin/media-list/media-item/media-item.component';
 import { EntrepotItemComponent } from './components/admin/entrepot-list/entrepot-item/entrepot-item.component';
 import { AddressItemComponent } from './components/admin/address-list/address-item/address-item.component';
+import { DonListComponent } from './components/admin/don-list/don-list.component';
+import { SingleDonComponent } from './components/admin/don-list/single-don/single-don.component';
+import { DonUpdateComponent } from './components/admin/don-list/don-update/don-update.component';
+import { DonItemComponent } from './components/admin/don-list/don-item/don-item.component';
+import { DonViewItemComponent } from './components/don/don-view-item/don-view-item.component';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -105,6 +112,9 @@ const appRoutes: Routes = [
   { path: 'admin/send', component: SendListComponent},
   { path: 'admin/send/:id', component: SingleSendComponent},
   { path: 'admin/send-update/:id', component: SendUpdateComponent},
+  { path: 'admin/don', component: DonListComponent},
+  { path: 'admin/don/:id', component: SingleDonComponent},
+  { path: 'admin/don-update/:id', component: DonUpdateComponent},
   { path: 'admin/user', component: UserListComponent},
   { path: 'admin/user/:id', component: SingleUserComponent},
   { path: 'admin/user-update/:id', component: UserUpdateComponent},
@@ -167,7 +177,12 @@ const appRoutes: Routes = [
     OrderedItemComponent,
     MediaItemComponent,
     EntrepotItemComponent,
-    AddressItemComponent
+    AddressItemComponent,
+    DonListComponent,
+    SingleDonComponent,
+    DonUpdateComponent,
+    DonItemComponent,
+    DonViewItemComponent
   ],
   imports: [
     BrowserModule,
@@ -190,4 +205,8 @@ const appRoutes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor() {
+    registerLocaleData(localeFr, 'fr');
+  }
+}

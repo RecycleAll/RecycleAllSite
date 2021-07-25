@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Ordered, OrderedCreation} from "../models/ordered.model";
 import {EMPTY, Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
-import {Address} from "../models/address.model";
 import {environment} from "../../environments/environment";
 import {catchError} from "rxjs/operators";
 
@@ -22,13 +21,13 @@ export class OrderedService {
 
   async getOne(id: number){
     return await this.httpClient.get<Ordered>(
-      environment.API_URL + `ordered/${id}`
+      environment.API_URL + `ordered/one/${id}`
     ).toPromise();
   }
 
   async getAll() {
     const promise = await this.httpClient.get<Ordered[]>(
-      environment.API_URL + 'ordered/',
+      environment.API_URL + 'ordered/all',
       {observe: 'response'}
     ).pipe(catchError(() => {
       return EMPTY;

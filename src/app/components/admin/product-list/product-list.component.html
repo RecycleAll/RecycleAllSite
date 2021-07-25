@@ -1,2 +1,13 @@
-<p>product-list works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+  <div class="col-2 border-right">
+    <app-side-bar></app-side-bar>
+  </div>
+  <div class="col-10">
+    <br>
+    <a class="btn btn-primary" routerLink="/admin/new-product">Nouveau : Product</a>
+    <hr>
+    <ul class="list-group">
+      <app-product-item *ngFor="let product of products" [product]="product" > </app-product-item>
+    </ul>
+  </div>
+</div>

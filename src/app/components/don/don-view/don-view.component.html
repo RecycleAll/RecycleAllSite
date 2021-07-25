@@ -1,2 +1,11 @@
-<p>don-view works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+
+  <div *ngIf="session" class="col-10">
+    <br>
+    <a class="btn btn-primary" routerLink="/donation/form">Nouveau : Don</a>
+    <hr>
+    <ul class="list-group">
+      <app-don-view-item *ngFor="let don of dons" [don]="don" > </app-don-view-item>
+    </ul>
+  </div>
+</div>

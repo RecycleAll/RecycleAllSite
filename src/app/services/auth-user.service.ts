@@ -56,8 +56,8 @@ export class AuthUserService {
       })
     ).toPromise();
 
-    if (promise.status === 201) {
-      if (promise.body != null) {
+    if (promise.status === 201){
+      if (promise.body != null){
         this.session = promise.body;
         return true;
       }
