@@ -76,6 +76,7 @@ import localeFr from '@angular/common/locales/fr';
 import { ProductComponent } from './components/product/product.component';
 import { CardComponent } from './components/shop/card/card.component';
 import {AdminGuardService} from "./services/admin-guard.service";
+import {MediaProductService} from "./services/media-product.service";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -209,7 +210,8 @@ const appRoutes: Routes = [
     MediaTypeService,
     OrderedService,
     SendService,
-    AdminGuardService
+    AdminGuardService,
+    MediaProductService
   ],
   bootstrap: [AppComponent]
 })
