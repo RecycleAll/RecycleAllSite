@@ -1,7 +1,7 @@
 <div class="container">
   <div class="col-sm-8 col-sm-offset-2">
-    <form *ngIf="newProductForm " [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
-      <h2>Ajouter votre produit</h2>
+    <form *ngIf="newProductForm" [formGroup]="newProductForm" (ngSubmit)="onSubmitForm()">
+      <h2>Créer un Produit</h2>
 
       <div class="form-group">
         <label for="name">Name</label>
@@ -58,7 +58,6 @@
           </div>
         </div>
       </div>
-
 
       <button type="submit" class="btn btn-primary" [disabled]="newProductForm.invalid">Create</button>
     </form>

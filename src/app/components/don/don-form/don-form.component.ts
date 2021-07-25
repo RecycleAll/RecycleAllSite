@@ -45,7 +45,7 @@ export class DonFormComponent implements OnInit {
 
   async ngOnInit() {
 
-    if (this.authUserSession.isAuth()) {
+    if( this.authUserSession.isAuth() ){
       this.session = this.authUserSession.getSession();
     }
 
@@ -102,9 +102,8 @@ export class DonFormComponent implements OnInit {
   async onSubmitForm() {
     const {name, description, serial_number, piece_of, entrepot_id} = this.newProductForm.value;
 
-
-    if (!this.session) {
-      return //TODO handle error
+    if(!this.session){
+      return
     }
 
     const don = await this.donService.create({
@@ -113,11 +112,12 @@ export class DonFormComponent implements OnInit {
       date: new Date()
     });
 
-    console.log("don: " +don);
-    if (!don) {
-      return //TODO handle error
+    if(!don){
+      alert("Can't create Donation")
+      return
     }
 
+    console.log("donId: "+don.id);
     let args;
     if (piece_of) {
       args = {
@@ -141,9 +141,11 @@ export class DonFormComponent implements OnInit {
     }
 
     const prod = await this.productService.create(args);
-    console.log("test"+prod);
-    if (!prod) {
-      return //TODO handle error
+
+    if(!prod){
+      await this.donService.delete(don.id)
+      alert("Can't create Donation")
+      return
     }
 
     console.log("test: "+this.mediaItems);

@@ -3,11 +3,20 @@ export class Session {
   private _token: string;
   private _user_id: number;
   private _card: number[] = [];
+  private _isAdmin: boolean = false;
 
   constructor(id: number, token: string, user_id: number) {
     this._id = id;
     this._token = token;
     this._user_id = user_id;
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin;
+  }
+
+  set isAdmin(value: boolean) {
+    this._isAdmin = value;
   }
 
   get id(): number {

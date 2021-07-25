@@ -20,7 +20,7 @@
 <!--      <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">-->
 <!--        <a routerLink="#" class="nav-link">Admin</a>-->
 <!--      </li>-->
-      <li routerLinkActive="active" class="nav-item active">
+      <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item active">
         <a routerLink="admin" class="nav-link">Admin</a>
       </li>
       <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">

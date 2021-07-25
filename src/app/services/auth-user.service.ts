@@ -5,6 +5,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
 import {catchError} from "rxjs/operators";
+import {UserService} from "./user.service";
 
 export interface UserClientCreationProps {
   firstname: string;
@@ -26,7 +27,8 @@ export class AuthUserService {
 
   public sessionSubject = new Subject<Session>();
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private userService: UserService) {
   }
 
   isAuth() {
@@ -56,9 +58,16 @@ export class AuthUserService {
       })
     ).toPromise();
 
-    if (promise.status === 201){
-      if (promise.body != null){
+    if (promise.status === 201) {
+      if (promise.body != null) {
         this.session = promise.body;
+        const user = await this.userService.getOne(this.session.user_id);
+        if (user !== null && user.work_in !== null) {
+          this.session.isAdmin = true;
+        }
+        else {
+          this.session.isAdmin = false;
+        }
         return true;
       }
     }

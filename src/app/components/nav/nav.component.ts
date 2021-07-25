@@ -41,6 +41,12 @@ export class NavComponent implements OnInit {
       (session: Session) => {
         this.isAuth = session !== undefined;
         this.activeSession = session;
+        if(this.isAuth){
+          this.isAdmin = session.isAdmin
+        }
+        else{
+          this.isAdmin = false;
+        }
       }
     );
     this.authUserService.emitSession();
