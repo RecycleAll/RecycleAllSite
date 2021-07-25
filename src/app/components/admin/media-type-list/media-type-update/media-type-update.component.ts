@@ -23,7 +23,7 @@ export class MediaTypeUpdateComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
     await this.initMediaType(id);
-    console.log(this.mediaType);
+    // console.log(this.mediaType);
     this.initForm();
   }
 
@@ -40,14 +40,15 @@ export class MediaTypeUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     const {name} = this.mediaTypeForm.value;
+    const id = this.mediaType.id;
 
     const res = await this.mediaTypeService.update({
-      id: this.mediaType.id,
+      id,
       name
     });
 
     if (res !== null) {
-      this.router.navigate(['/admin/media-type']);
+      this.router.navigate([`/admin/media-type/${id}`]);
     } else {
       alert("Error of update");
     }
