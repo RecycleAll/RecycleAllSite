@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthUserService} from "../../services/auth-user.service";
 import {Subscription} from "rxjs";
@@ -13,8 +13,8 @@ import {UserService} from "../../services/user.service";
 })
 export class NavComponent implements OnInit {
 
-  isAuth : boolean = false;
-  isAdmin : boolean = false;
+  isAuth: boolean = false;
+  isAdmin: boolean = false;
   authSubscription!: Subscription;
   activeSession!: Session;
   connectedUser!: User;
@@ -22,11 +22,12 @@ export class NavComponent implements OnInit {
   constructor(private authUserService: AuthUserService,
               private router: Router,
               private userService: UserService
-  ) { }
+  ) {
+  }
 
   async ngOnInit(): Promise<void> {
     await this.initSession();
-    if (this.isAuth){
+    if (this.isAuth) {
       await this.initUser(this.activeSession.user_id);
     }
   }
@@ -41,10 +42,9 @@ export class NavComponent implements OnInit {
       (session: Session) => {
         this.isAuth = session !== undefined;
         this.activeSession = session;
-        if(this.isAuth){
+        if (this.isAuth) {
           this.isAdmin = session.isAdmin
-        }
-        else{
+        } else {
           this.isAdmin = false;
         }
       }
@@ -57,6 +57,9 @@ export class NavComponent implements OnInit {
     this.isAdmin = this.connectedUser.work_in != undefined;
   }
 
-
+  getRecycleCoin() {
+    console.log("test")
+    return this.authUserService.getSession()!.recycle_coin;
+  }
 
 }

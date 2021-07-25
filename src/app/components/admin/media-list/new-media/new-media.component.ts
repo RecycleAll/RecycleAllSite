@@ -15,7 +15,6 @@ import {Session} from "../../../../models/session.model";
 })
 export class NewMediaComponent implements OnInit {
 
-  // TODO
   mediaForm !: FormGroup;
 
   mediaTypes: MediaType[] = [];

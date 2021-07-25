@@ -17,9 +17,12 @@
     <h4 class="text-center text-white">Recycle All</h4>
 
     <ul class="navbar-nav d-flex">
-<!--      <li *ngIf="!isAuth" routerLinkActive="active" class="nav-item active">-->
-<!--        <a routerLink="#" class="nav-link">Admin</a>-->
-<!--      </li>-->
+      <li *ngIf="isAuth" class="nav-item active">
+        <a class="nav-link">Coin : {{getRecycleCoin()}}</a>
+      </li>
+      <li *ngIf="isAuth" routerLinkActive="active" class="nav-item active">
+        <a routerLink="cart" class="nav-link">Panier</a>
+      </li>
       <li *ngIf="isAdmin" routerLinkActive="active" class="nav-item active">
         <a routerLink="admin" class="nav-link">Admin</a>
       </li>
