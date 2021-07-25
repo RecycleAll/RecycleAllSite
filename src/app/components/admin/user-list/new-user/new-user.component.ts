@@ -53,12 +53,10 @@ export class NewUserComponent implements OnInit {
     const res = await this.authUser.register({
       ...value
     });
-    if (res !== null) {
+    if (res) {
       this.router.navigate(['/admin/user']);
     } else {
       alert("Error of creation");
     }
   }
-
-//todo ça va pas passer du premier coup (onsubmit)
 }
