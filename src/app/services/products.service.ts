@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Product, ProductCreation} from "../models/product.model";
+import {Product, ProductCreation, ProductUpdate} from "../models/product.model";
 import {Subject} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
@@ -37,7 +37,7 @@ export class ProductsService {
   async getAllAvailable() {
     return (await this.httpClient.get<Product[]>(
       environment.API_URL + "product/"
-    ).toPromise()).filter(value => value.order_id === undefined && value.entrepot_store_id !== undefined && value.price !== undefined);
+    ).toPromise()).filter(value => value.order_id === null && value.entrepot_store_id !== null && value.price !== null);
   }
 
   async getAllByDon(don_id: number) {
@@ -58,19 +58,11 @@ export class ProductsService {
     ).toPromise();
   }
 
-  async update(props: Product) {
+  async update(props: ProductUpdate) {
 
     return await this.httpClient.put<Product>(
       environment.API_URL + "product/",
-      {
-        id: props.id,
-        name: props.name,
-        description: props.description,
-        serial_number: props.serial_number,
-        price: props.price,
-        piece_of: props.piece_of,
-        entrepot_store_id: props.entrepot_store_id
-      }
+      props
     ).toPromise();
   }
 

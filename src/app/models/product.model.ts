@@ -9,6 +9,18 @@ export interface ProductCreation{
   order_id?: number;
 }
 
+export interface ProductUpdate{
+  id: number;
+  name?: string;
+  description?: string;
+  serial_number?: string | null;
+  price?: number | null;
+  piece_of?: number | null;
+  entrepot_store_id?: number | null;
+  don_id?: number | null;
+  order_id?: number | null;
+}
+
 export class Product{
 
   id: number;
