@@ -86,6 +86,8 @@ export class AuthUserService {
 
 
   async register(props: UserAdminCreationProps) {
+    console.log(props.work_in)
+    console.log(props)
     const promise = await this.httpClient.post<User>(
       environment.API_URL + "auth/register",
       {
@@ -93,7 +95,7 @@ export class AuthUserService {
         lastname: props.lastname,
         email: props.email,
         password: props.password,
-        work_id: props.work_in
+        work_in: props.work_in
       },
       {observe: "response"}
     ).pipe(catchError(() => {
@@ -135,7 +137,7 @@ export class AuthUserService {
         lastname: props.lastname,
         email: props.email,
         password: props.password,
-        work_id: props.work_in,
+        work_in: props.work_in,
         recycle_coins: props.recycle_coins
       },
       {observe: 'response'}

@@ -24,8 +24,8 @@
         <input type="password" id="newpassword" class="form-control" formControlName="newpassword">
       </div>
       <label for="entrepots">Entrepot</label>
-      <select class="custom-select" name="entrepots" id="entrepots" >
-        <option *ngFor="let entrepot of entrepots;" value="{{entrepot.id}}">{{entrepot.name}} </option>
+      <select class="custom-select" name="entrepots" id="entrepots" formControlName="entrepots">
+        <option *ngFor="let entrepot of entrepots;" [value]="entrepot.id">{{entrepot.name}} </option>
       </select>
       <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
     </form>
