@@ -9,6 +9,7 @@ import {MediaType} from "../../../../models/media-type.model";
 import {MediaService} from "../../../../services/media.service";
 import {Media} from "../../../../models/media.model";
 import {MediaTypeService} from "../../../../services/media-type.service";
+import {MediaProductService} from "../../../../services/media-product.service";
 
 interface MediaItem{
   mediaType?: MediaType;
@@ -39,7 +40,8 @@ export class NewProductComponent implements OnInit {
               private productService: ProductsService,
               private mediaService: MediaService,
               private mediaTypeService: MediaTypeService,
-              private entrepotService: EntrepotService) {
+              private entrepotService: EntrepotService,
+              private mediaProductService: MediaProductService) {
   }
 
   async entrepotFetch() {
@@ -178,7 +180,7 @@ export class NewProductComponent implements OnInit {
 
       if(mediaItem.file && mediaItem.mediaType) {
         console.log("posting: " + mediaItem.file.name);
-        const res = await this.mediaService.create({
+        const media = await this.mediaService.create({
           name: mediaItem.file.name,
           client_view: true,
           path: undefined,
@@ -187,23 +189,35 @@ export class NewProductComponent implements OnInit {
           mimetype: undefined
         });
 
-        if (res == null) {
+        if (media == null) {
           alert("Error of creation");
           return;
         }
 
-        const resFile = await this.mediaService.uploadFile(mediaItem.file, res.id);
+        const resFile = await this.mediaService.uploadFile(mediaItem.file, media.id);
 
         if (!resFile) {
-
-          alert("Can't upload file")
-          return
+          alert("Can't upload file");
+          await this.mediaService.delete(media.id);
+          return;
         }
-        //TODO update ProductMedia
+
+        await this.mediaProductService.create({
+          media_id: media.id,
+          product_id: prod.id
+        });
 
       }else{
-        //TODO update ProductMedia
 
+        if( !mediaItem.media){
+          alert("Error media is empty");
+          return;
+        }
+
+        await this.mediaProductService.create({
+          media_id: mediaItem.media.id,
+          product_id: prod.id
+        });
       }
 
     }

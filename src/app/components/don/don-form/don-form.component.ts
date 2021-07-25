@@ -9,6 +9,7 @@ import {AuthUserService} from "../../../services/auth-user.service";
 import {MediaType} from "../../../models/media-type.model";
 import {MediaTypeService} from "../../../services/media-type.service";
 import {MediaService} from "../../../services/media.service";
+import {MediaProductService} from "../../../services/media-product.service";
 
 interface MediaItem{
   mediaType: MediaType;
@@ -38,7 +39,8 @@ export class DonFormComponent implements OnInit {
               private authUserSession: AuthUserService,
               private mediaTypeService: MediaTypeService,
               private mediaService: MediaService,
-              private donService: DonService) {
+              private donService: DonService,
+              private mediaProductService: MediaProductService) {
   }
 
   async ngOnInit() {
@@ -149,7 +151,7 @@ export class DonFormComponent implements OnInit {
     console.log("test: "+this.mediaItems);
     for(let mediaItem of this.mediaItems){
       console.log("posting: "+mediaItem.file.name);
-      const res = await this.mediaService.create({
+      const media = await this.mediaService.create({
         name: mediaItem.file.name,
         client_view: true,
         path: undefined,
@@ -158,18 +160,23 @@ export class DonFormComponent implements OnInit {
         mimetype: undefined
       });
 
-      if (res == null){
+      if (media == null){
         alert("Error of creation");
         return;
       }
 
-      const resFile = await this.mediaService.uploadFile(mediaItem.file, res.id);
+      const resFile = await this.mediaService.uploadFile(mediaItem.file, media.id);
 
       if (!resFile) {
-        return //TODO handle error
+        alert("Can't upload file");
+        await this.mediaService.delete(media.id);
+        return;
       }
 
-      //TODO update ProductMedia
+      await this.mediaProductService.create({
+        media_id: media.id,
+        product_id: prod.id
+      });
 
     }
 
