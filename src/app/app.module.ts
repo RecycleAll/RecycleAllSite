@@ -73,6 +73,7 @@ import { DonItemComponent } from './components/admin/don-list/don-item/don-item.
 import { DonViewItemComponent } from './components/don/don-view-item/don-view-item.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { ProductComponent } from './components/product/product.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -82,8 +83,9 @@ const appRoutes: Routes = [
   { path: 'shop', component: ShopViewComponent},
   { path: 'my-account', component: MyAccountViewComponent},
   { path: 'my-account/edit', component: MyAccountUpdateComponent},
-  { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
+  { path: 'signup', component: SignupComponent},
+  { path: 'product/:id', component: ProductComponent},
   { path: 'profil', component: ProfilComponent, canActivate: [AuthGuardService]},
   { path: 'admin', component: AdminHomeComponent},
   { path: 'admin/address', component: AddressListComponent},
@@ -182,7 +184,8 @@ const appRoutes: Routes = [
     SingleDonComponent,
     DonUpdateComponent,
     DonItemComponent,
-    DonViewItemComponent
+    DonViewItemComponent,
+    ProductComponent
   ],
   imports: [
     BrowserModule,
