@@ -60,8 +60,9 @@ export class AuthUserService {
 
     if (promise.status === 201) {
       if (promise.body != null) {
-        this.session = promise.body;
+        this.session = new Session(promise.body.id,promise.body.token,promise.body.user_id);
         const user = await this.userService.getOne(this.session.user_id);
+        this.session.recycle_coin = user.recycle_coins;
         if (user !== null && user.work_in !== null) {
           this.session.isAdmin = true;
         }

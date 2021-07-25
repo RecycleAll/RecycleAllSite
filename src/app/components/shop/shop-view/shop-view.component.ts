@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {ProductsService} from "../../../services/products.service";
+import {Product} from "../../../models/product.model";
 
 @Component({
   selector: 'app-shop-view',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShopViewComponent implements OnInit {
 
-  constructor() { }
+  products: Product[] = []
 
-  ngOnInit(): void {
+  constructor(private productService: ProductsService) { }
+
+  async ngOnInit(): Promise<void> {
+    await this.productFetch();
+    this.products = await this.productService.getAllAvailable();
+  }
+
+  async productFetch() {
+    await this.productService.getAll();
   }
 
 }
