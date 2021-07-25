@@ -2,6 +2,7 @@ export class Session {
   private _id: number
   private _token: string;
   private _user_id: number;
+  private _card: number[] = [];
 
   constructor(id: number, token: string, user_id: number) {
     this._id = id;
@@ -32,4 +33,17 @@ export class Session {
   set user_id(value: number) {
     this._user_id = value;
   }
+
+  get card(): number[]{
+    return this._card;
+  }
+
+  public addToCard(id_product: number){
+    this._card.push(id_product)
+  }
+
+  public supprFromCard(id_product: number){
+    this._card.push(id_product)
+  }
+
 }

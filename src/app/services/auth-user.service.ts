@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Session} from "../models/session.model";
 import {EMPTY, Subject} from "rxjs";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
 import {catchError} from "rxjs/operators";
@@ -13,8 +13,8 @@ export interface UserClientCreationProps {
   email: string;
 }
 
-export interface UserAdminCreationProps extends UserClientCreationProps{
-  work_in?:number;
+export interface UserAdminCreationProps extends UserClientCreationProps {
+  work_in?: number;
 }
 
 @Injectable({
@@ -31,6 +31,10 @@ export class AuthUserService {
 
   isAuth() {
     return this.session !== undefined;
+  }
+
+  getSession() {
+    return this.session;
   }
 
   emitSession() {
@@ -52,8 +56,8 @@ export class AuthUserService {
       })
     ).toPromise();
 
-    if (promise.status === 201){
-      if (promise.body != null){
+    if (promise.status === 201) {
+      if (promise.body != null) {
         this.session = promise.body;
         return true;
       }
@@ -81,31 +85,29 @@ export class AuthUserService {
 
 
   async register(props: UserAdminCreationProps) {
-    this.httpClient.post<any>(
+    const promise = await this.httpClient.post<User>(
       environment.API_URL + "auth/register",
       {
         firstname: props.firstname,
         lastname: props.lastname,
         email: props.email,
         password: props.password,
-        work_id: props.work_in
-      }
-    ).subscribe(
-      response => {
-        console.log("new user : ", response)
-      }, error => {
-        console.log("Error : ", error)
-      }
-    );
+        work_in: props.work_in
+      },
+      {observe: "response"}
+    ).pipe(catchError(() => {
+      return EMPTY;
+    })).toPromise();
+    return promise.status == 201;
   }
 
   logOut() {
-    if (this.session === undefined){
+    if (this.session === undefined) {
       return;
     }
     let options = {
       headers: new HttpHeaders({
-        'Authorization' : `Bearer ${this.session.token}`,
+        'Authorization': `Bearer ${this.session.token}`,
       })
     };
     this.httpClient.delete(
@@ -132,7 +134,7 @@ export class AuthUserService {
         lastname: props.lastname,
         email: props.email,
         password: props.password,
-        work_id: props.work_in,
+        work_in: props.work_in,
         recycle_coins: props.recycle_coins
       },
       {observe: 'response'}
@@ -142,7 +144,7 @@ export class AuthUserService {
       })
     ).toPromise();
 
-    if (promise.status === 200 && promise.body !== null){
+    if (promise.status === 200 && promise.body !== null) {
       return promise.body;
     }
     return null;
