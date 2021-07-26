@@ -24,6 +24,8 @@ export class CardComponent implements OnInit {
   finalPriceOfOrderInEuro!: number;
   coinRatio!: number;
 
+  displayConfirm: boolean = false;
+
   userAddress: Address[] = [];
 
   constructor(private formBuilder: FormBuilder,
@@ -38,6 +40,7 @@ export class CardComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.initValidationForm()
     this.initForm();
+    await this.getCoinRatio();
     const userAddresses = await this.userAddressService.getAllByUser(this.authUserService.getSession()!.user_id);
     for (const x of userAddresses) {
       if (x.address_id) {
@@ -102,7 +105,7 @@ export class CardComponent implements OnInit {
     let {coinUsed} = this.cardForm.value;
     this.coinUsedForOrder = coinUsed;
     this.finalPriceOfOrderInEuro = this.leftToPay;
-
+    this.displayConfirm = true;
   }
 
   async onSubmitValidationForm(){
@@ -139,6 +142,9 @@ export class CardComponent implements OnInit {
     this.authUserService.getSession()!.card = []
 
     this.authUserService.getSession()!.recycle_coin = userCoin;
+
+    this.displayConfirm = false;
+    this.leftToPay = 0;
   }
 
 }

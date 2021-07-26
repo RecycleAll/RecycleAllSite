@@ -6,12 +6,14 @@
           <h4>{{product.name}}</h4>
           <h5>Description : {{product.description}}</h5>
           <h5>S/N : {{product.description}}</h5>
-          <h5 *ngIf="product.price">Price : {{product.price}}€/{{product.price/coinRatio}}Coin</h5>
+          <h5 *ngIf="product.price">Price : {{product.price}}€/{{product.price / coinRatio}}Coin</h5>
 
           <a [routerLink]="'/product/'+[product.id]">Détails</a>
         </div>
         <div class="col-2">
-          <button *ngIf="isAuth && isInCard(product)" class="btn btn-danger" (click)="removeFromCard(product)">Remove from card</button>
+          <button *ngIf="isAuth && isInCard(product)" class="btn btn-danger" (click)="removeFromCard(product)">Remove
+            from card
+          </button>
         </div>
       </div>
     </li>
@@ -21,13 +23,17 @@
     <form [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
         <label for="coinUsed">Coin used</label>
-        <input type="number" min="0" max="{{getMaxCoinUsable()}}" id="coinUsed" class="form-control" formControlName="coinUsed" #t (change)="onChangeCoinUsed(t.value)">
+        <input type="number" min="0" max="{{getMaxCoinUsable()}}" id="coinUsed" class="form-control"
+               formControlName="coinUsed" #t (change)="onChangeCoinUsed(t.value)">
       </div>
       <h5>Restant a payer : {{leftToPay}}€</h5>
-      <button type="submit" class="btn btn-success" [disabled]="cardForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment</button>
+      <button type="submit" class="btn btn-success"
+              [disabled]="cardForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment
+      </button>
     </form>
   </div>
-  <div class="col-10" *ngIf="finalPriceOfOrderInEuro != null && coinUsedForOrder != null && finalPriceOfOrderInEuro != undefined && coinUsedForOrder != undefined">
+  <div class="col-10"
+       *ngIf="displayConfirm">
     <form *ngIf="validationForm" [formGroup]="validationForm" (ngSubmit)="onSubmitValidationForm()">
       <h5>Address de facturation</h5>
       <select id="billing_address" class="custom-select" formControlName="billing_address">
@@ -39,7 +45,9 @@
       </select>
       <h5>Coin used in order : {{coinUsedForOrder}}</h5>
       <h5>Validation : {{finalPriceOfOrderInEuro}}€</h5>
-      <button type="submit" class="btn btn-success" [disabled]="validationForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment</button>
+      <button type="submit" class="btn btn-success"
+              [disabled]="validationForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment
+      </button>
     </form>
   </div>
 </div>
