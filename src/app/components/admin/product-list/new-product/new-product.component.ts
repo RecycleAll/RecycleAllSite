@@ -177,7 +177,6 @@ export class NewProductComponent implements OnInit {
 
     console.log("test: "+this.mediaItems);
     for(let mediaItem of this.mediaItems){
-
       if(mediaItem.file && mediaItem.mediaType) {
         console.log("posting: " + mediaItem.file.name);
         const media = await this.mediaService.create({

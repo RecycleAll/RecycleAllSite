@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Product} from "../../../../models/product.model";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -10,12 +10,14 @@ import {MediaType} from "../../../../models/media-type.model";
 import {MediaTypeService} from "../../../../services/media-type.service";
 import {MediaProductService} from "../../../../services/media-product.service";
 import {MediaService} from "../../../../services/media.service";
+import {MediaProduct} from "../../../../models/mediaProduct.model";
 
 
-interface MediaItem{
+interface MediaItem {
   mediaType?: MediaType;
   file?: File;
   media?: Media;
+  mediaProduct?: MediaProduct;
 }
 
 @Component({
@@ -49,7 +51,8 @@ export class ProductUpdateComponent implements OnInit {
               private router: Router,
               private mediaService: MediaService,
               private mediaTypeService: MediaTypeService,
-              private mediaProductService: MediaProductService) { }
+              private mediaProductService: MediaProductService) {
+  }
 
   async entrepotFetch() {
     await this.entrepotService.getAll();
@@ -69,7 +72,6 @@ export class ProductUpdateComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
-    await this.initProduct(id);
 
     await this.mediaTypesFetch();
     this.mediaTypeService.mediaTypeSubject.subscribe(
@@ -84,9 +86,10 @@ export class ProductUpdateComponent implements OnInit {
       this.allMedia = value.map(value => {
         return {
           media: value,
-          mediaType: this.mediaTypes.find(value1 => value1.id ===value.media_type_id)
+          mediaType: this.mediaTypes.find(value1 => value1.id === value.media_type_id)
         }
       });
+
     });
     this.mediaService.emitMedia();
 
@@ -102,6 +105,7 @@ export class ProductUpdateComponent implements OnInit {
     });
     this.productService.emitProduct();
 
+    await this.initProduct(id);
     this.initForm();
   }
 
@@ -110,24 +114,29 @@ export class ProductUpdateComponent implements OnInit {
 
     const mediaProducts = await this.mediaProductService.getAllByProduct(this.product.id);
 
-    console.log("media product : ", mediaProducts);
-
-    if( mediaProducts){
+    if (mediaProducts) {
       const tmp: MediaItem[] = mediaProducts.map(mediaProduct => {
-                          const media = this.allMedia.find(media => media.media?.id === mediaProduct.media_id);
-                          return {
-                            media: media?.media,
-                            mediaType: this.mediaTypes.find(mediaType => mediaType.id === media?.media?.media_type_id),
-                            file: undefined
-                          }
-                        });
-      console.log("linkedMedia : ", tmp);
-      if(tmp){
+
+        console.log("media: " + mediaProduct.media_id);
+        const mediaItem = this.allMedia.find(media => media.media?.id === mediaProduct.media_id);
+        if (mediaItem) {
+          return {
+            mediaProduct,
+            media: mediaItem.media,
+            mediaType: undefined,
+            file: undefined
+          };
+        } else {
+          return this.allMedia[0];
+        }
+      });
+
+      if (tmp) {
         this.linkedMedia = tmp;
-      }else{
+      } else {
         this.linkedMedia = [];
       }
-    }else{
+    } else {
       this.linkedMedia = [];
     }
 
@@ -138,14 +147,13 @@ export class ProductUpdateComponent implements OnInit {
     this.currentMediaType = this.mediaTypes.find(value => value.id === id);
   }
 
-  setMedia(mediaID: string){
+  setMedia(mediaID: string) {
     const id = Number(mediaID);
     this.currentMedia = this.allMedia.find(value => value.media?.id === id);
-    console.log("media: "+this.currentMedia+" id: "+mediaID+"  "+id);
   }
 
-  addMedia(){
-    if(this.fileList !== null && this.currentMediaType !== undefined) {
+  addMedia() {
+    if (this.fileList !== null && this.currentMediaType !== undefined) {
       this.addedMedia.push({
         file: this.fileList[0],
         mediaType: this.currentMediaType
@@ -153,7 +161,7 @@ export class ProductUpdateComponent implements OnInit {
     }
   }
 
-  addMedia2(){
+  addMedia2() {
     if (!this.currentMedia) {
       return;
     }
@@ -172,22 +180,23 @@ export class ProductUpdateComponent implements OnInit {
     }
   }
 
-  removeMedia(media: MediaItem){
-    let index = this.linkedMedia.indexOf(media, 0);
+  removeMedia(mediaItem: MediaItem) {
+    let index = this.linkedMedia.indexOf(mediaItem, 0);
     if (index > -1) {
       this.linkedMedia.splice(index, 1);
-      this.removedMedia.push(media);
+      this.removedMedia.push(mediaItem);
       return;
     }
 
-    index = this.addedMedia.indexOf(media, 0);
+    index = this.addedMedia.indexOf(mediaItem, 0);
     if (index > -1) {
       this.addedMedia.splice(index, 1);
-        this.allMedia.push(media);
+      if (mediaItem.media)
+        this.allMedia.push(mediaItem);
     }
   }
 
-  setFileList(event: Event){
+  setFileList(event: Event) {
     this.fileList = (event.target as HTMLInputElement).files;
   }
 
@@ -213,7 +222,7 @@ export class ProductUpdateComponent implements OnInit {
       entrepot_id = null;
     }
 
-    const res = await this.productService.update( {
+    const prod = await this.productService.update({
       id: this.product.id,
       name,
       description,
@@ -223,9 +232,64 @@ export class ProductUpdateComponent implements OnInit {
       entrepot_store_id: entrepot_id
     });
 
-    if (res !== null){
+    for (let mediaItemToAdd of this.addedMedia) {
+
+      if (mediaItemToAdd.file && mediaItemToAdd.mediaType) {
+
+        const media = await this.mediaService.create({
+          name: mediaItemToAdd.file.name,
+          client_view: true,
+          path: undefined,
+          media_type_id: mediaItemToAdd.mediaType.id,
+          user_save: 1,
+          mimetype: undefined
+        });
+
+        if (media == null) {
+          alert("Error of creation");
+          return;
+        }
+
+        const resFile = await this.mediaService.uploadFile(mediaItemToAdd.file, media.id);
+
+        if (!resFile) {
+          alert("Can't upload file");
+          await this.mediaService.delete(media.id);
+          return;
+        }
+
+        await this.mediaProductService.create({
+          media_id: media.id,
+          product_id: prod.id
+        });
+      } else {
+        if (!mediaItemToAdd.media) {
+          alert("Error media is empty");
+          return;
+        }
+
+        await this.mediaProductService.create({
+          media_id: mediaItemToAdd.media.id,
+          product_id: prod.id
+        });
+      }
+
+    }
+
+    for(let mediaItemToRemove of this.removedMedia){
+
+      if (!mediaItemToRemove.mediaProduct) {
+        alert("Error mediaProduct is empty");
+        return;
+      }
+
+      await this.mediaProductService.delete(mediaItemToRemove.mediaProduct.id);
+
+    }
+
+    if (prod !== null) {
       this.router.navigate(['/admin/product']);
-    }else{
+    } else {
       alert("Error of update");
     }
   }

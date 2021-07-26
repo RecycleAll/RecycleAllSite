@@ -58,7 +58,6 @@ export class NavComponent implements OnInit {
   }
 
   getRecycleCoin() {
-    console.log("test")
     return this.authUserService.getSession()!.recycle_coin;
   }
 
