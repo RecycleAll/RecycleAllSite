@@ -17,7 +17,6 @@ import { ShopViewComponent } from './components/shop/shop-view/shop-view.compone
 import { MyAccountViewComponent } from './components/my-account/my-account-view/my-account-view.component';
 import { MyAccountUpdateComponent } from './components/my-account/my-account-update/my-account-update.component';
 import {AuthGuardService} from "./services/auth-guard.service";
-import { ProfilComponent } from './components/profil/profil.component';
 import {UserService} from "./services/user.service";
 import {ProductsService} from "./services/products.service";
 import { SideBarComponent } from './components/admin/side-bar/side-bar.component';
@@ -93,7 +92,6 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent},
   { path: 'product/:id', component: ProductComponent},
-  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuardService]},
   { path: 'admin', component: AdminHomeComponent, canActivate: [AdminGuardService]},
   { path: 'admin/address', component: AddressListComponent, canActivate: [AdminGuardService]},
   { path: 'admin/address/:id', component: SingleAddressComponent, canActivate: [AdminGuardService]},
@@ -146,7 +144,6 @@ const appRoutes: Routes = [
     ShopViewComponent,
     MyAccountViewComponent,
     MyAccountUpdateComponent,
-    ProfilComponent,
     SideBarComponent,
     UserListComponent,
     SingleUserComponent,

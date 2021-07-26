@@ -89,7 +89,6 @@ export class NewProductComponent implements OnInit {
       else{
         this.products = [];
       }
-      console.log(this.products);
     });
     this.productService.emitProduct();
 
@@ -104,7 +103,6 @@ export class NewProductComponent implements OnInit {
   setMedia(mediaID: string){
     const id = Number(mediaID);
     this.currentMedia = this.medias.find(value => value.id === id);
-    console.log("media: "+this.currentMedia+" id: "+mediaID+"  "+id);
   }
 
   addMedia(){
@@ -138,8 +136,8 @@ export class NewProductComponent implements OnInit {
     this.newProductForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      serial_number: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      serial_number: [''],
+      price: [''],
       piece_of: [null],
       entrepot_id: [null]
     });
@@ -175,11 +173,8 @@ export class NewProductComponent implements OnInit {
       return
     }
 
-    console.log("test: "+this.mediaItems);
     for(let mediaItem of this.mediaItems){
-
       if(mediaItem.file && mediaItem.mediaType) {
-        console.log("posting: " + mediaItem.file.name);
         const media = await this.mediaService.create({
           name: mediaItem.file.name,
           client_view: true,

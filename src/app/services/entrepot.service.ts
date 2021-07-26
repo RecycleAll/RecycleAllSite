@@ -34,7 +34,6 @@ export class EntrepotService {
     })).toPromise();
 
     if (promise.status === 200 && promise.body != null){
-      console.log(promise.body);
       this.entrepots = promise.body;
     }
     this.emitEntrepot();

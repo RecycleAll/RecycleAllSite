@@ -60,7 +60,7 @@ export class MediaUpdateComponent implements OnInit {
     console.log(mediaType);
     this.mediaForm = this.formBuilder.group({
       name: [this.media.name, Validators.required],
-      client_view: [this.media.client_view, Validators.required],
+      client_view: [this.media.client_view],
       media_type_id: [this.media.media_type_id, Validators.required],
     });
   }

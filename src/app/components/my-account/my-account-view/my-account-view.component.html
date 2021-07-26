@@ -1,2 +1,7 @@
-<p>my-account-view works!</p>
-<!--TODO-->
+<h3>Mon profil</h3>
+<div *ngIf="connectedUser !== undefined">
+  <h4>{{connectedUser.firstname}} {{connectedUser.lastname}}</h4>
+  <p>Email : {{connectedUser.email}}</p>
+  <p>Coins : {{connectedUser.recycle_coins}}</p>
+  <p *ngIf="connectedUser.work_in !== undefined">{{connectedUser.work_in}}</p>
+</div>

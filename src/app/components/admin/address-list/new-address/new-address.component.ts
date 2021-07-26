@@ -23,7 +23,6 @@ export class NewAddressComponent implements OnInit {
 
   initForm() {
     this.addressForm = this.formBuilder.group({
-      // name: [this.mediaType.name, Validators.pattern(/^(?!(this.mediaType.name)).*$/ )]
       name: ['', [Validators.required]],
       number: ['', [Validators.required]],
       way: ['', [Validators.required]],

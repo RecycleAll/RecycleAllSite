@@ -95,7 +95,7 @@ export class OrderedUpdateComponent implements OnInit {
       user: [this.order.user_id, [Validators.required]],
       price: [this.order.price, [Validators.required]],
       reducedPrice: [this.order.price_after_reduce, [Validators.required]],
-      coin: [this.order.coins_used, [Validators.required]],
+      coin: [this.order.coins_used],
       date: [dateToStringForms(this.order.date), [Validators.required]],
     });
   }

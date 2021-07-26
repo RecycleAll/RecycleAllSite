@@ -53,7 +53,7 @@ export class NewMediaComponent implements OnInit {
   initForm() {
     this.mediaForm = this.formBuilder.group({
       name: ['', Validators.required],
-      client_view: ['', Validators.required],
+      client_view: [''],
       media_type_id: ['', Validators.required],
       file: [null, Validators.required],
       fileSource: ['', Validators.required]
@@ -76,10 +76,6 @@ export class NewMediaComponent implements OnInit {
   }
 
   async onSubmitForm() {
-    // console.log(this.mediaForm.value);
-    // console.log("file : ", this.mediaForm.value.file);
-    // console.log("file : ", this.mediaForm.value.fileSource);
-
     let user_save = 0;
     if (this.activeSession !== undefined && this.activeSession.user_id !== undefined){
       user_save = this.activeSession.user_id;
