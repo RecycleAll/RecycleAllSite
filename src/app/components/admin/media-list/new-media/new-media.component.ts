@@ -53,7 +53,7 @@ export class NewMediaComponent implements OnInit {
   initForm() {
     this.mediaForm = this.formBuilder.group({
       name: ['', Validators.required],
-      client_view: [''],
+      client_view: [false],
       media_type_id: ['', Validators.required],
       file: [null, Validators.required],
       fileSource: ['', Validators.required]
