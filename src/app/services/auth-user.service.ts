@@ -3,7 +3,7 @@ import {Session} from "../models/session.model";
 import {EMPTY, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "../../environments/environment";
-import {User} from "../models/user.model";
+import {User, UserUpdate} from "../models/user.model";
 import {catchError} from "rxjs/operators";
 import {UserService} from "./user.service";
 
@@ -135,7 +135,7 @@ export class AuthUserService {
     )
   }
 
-  async update(props: User) {
+  async update(props: UserUpdate) {
     const promise = await this.httpClient.put<User>(
       environment.API_URL + "auth/",
       {

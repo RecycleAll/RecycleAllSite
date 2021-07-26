@@ -8,6 +8,16 @@ export class UserLogInProps {
   }
 }
 
+export interface UserUpdate{
+  id: number;
+  firstname: string | null | undefined;
+  lastname: string | null | undefined;
+  password: string | null | undefined;
+  email: string | null | undefined;
+  recycle_coins: number | null | undefined;
+  work_in?:number | null | undefined;
+}
+
 export class User{
   id: number;
   firstname: string;

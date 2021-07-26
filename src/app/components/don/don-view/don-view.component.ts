@@ -28,7 +28,6 @@ export class DonViewComponent implements OnInit {
     if (this.session)
       this.dons = await this.donService.getAllByUser(this.session.user_id);
 
-    console.log("dons: " + this.dons.length);
   }
 
 }

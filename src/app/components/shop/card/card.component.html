@@ -1,17 +1,31 @@
-<li [ngClass]="{'list-group-item': true}">
-  <div *ngFor="let product of this.authUserService.getSession()!.card" class="row">
-    <div class="col-11">
-      <h4>{{product.name}}</h4>
-      <h5>Description : {{product.description}}</h5>
-      <h5>S/N : {{product.description}}</h5>
-      <h5>Price : {{product.price}}</h5>
+<div class="row">
+  <div class="col-10">
+    <li [ngClass]="{'list-group-item': true}">
+      <div *ngFor="let product of this.authUserService.getSession()!.card" class="row">
+        <div class="col-9">
+          <h4>{{product.name}}</h4>
+          <h5>Description : {{product.description}}</h5>
+          <h5>S/N : {{product.description}}</h5>
+          <h5 *ngIf="product.price">Price : {{product.price}}€/{{product.price*10}}Coin</h5>
 
-      <a [routerLink]="'/product/'+[product.id]">Détails</a>
-    </div>
-    <div class="col-1">
-      <button *ngIf="isAuth && isInCard(product)" class="btn btn-danger" (click)="removeFromCard(product)">Remove from card</button>
-    </div>
+          <a [routerLink]="'/product/'+[product.id]">Détails</a>
+        </div>
+        <div class="col-1">
+          <button *ngIf="isAuth && isInCard(product)" class="btn btn-danger" (click)="removeFromCard(product)">Remove from card</button>
+        </div>
+      </div>
+    </li>
   </div>
-</li>
+  <div class="col-2">
+    <h5>Price : {{getPrice()}}€/{{getPrice() * 10}}Coin</h5>
+    <form *ngIf="cardForm" [formGroup]="cardForm" (ngSubmit)="onSubmitForm()">
+      <div class="form-group">
+        <label for="coinUsed">Coin used</label>
+        <input type="number" min="0" max="{{getMaxCoinUsable()}}" id="coinUsed" class="form-control" formControlName="coinUsed" #t (change)="onChangeCoinUsed(t.value)">
+      </div>
+      <h5>Restant a payer : {{leftToPay}}€</h5>
+      <button type="submit" class="btn btn-success" [disabled]="cardForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment</button>
+    </form>
+  </div>
 
-<!--TODO bouton validation du panier-->
+</div>

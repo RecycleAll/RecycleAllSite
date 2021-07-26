@@ -5,7 +5,7 @@
       <h4>{{product.name}}</h4>
       <h5>Description : {{product.description}}</h5>
       <h5>S/N : {{product.serial_number}}</h5>
-      <h5>Price : {{product.price}}</h5>
+      <h5 *ngIf="product.price">Price : {{product.price}}€/{{product.price*10}}Coin</h5>
       <h5 *ngIf="linkedProduct !== undefined">Part :
         <a [routerLink]="'/product/'+linkedProduct.id"> {{linkedProduct.name}} </a>
       </h5>
