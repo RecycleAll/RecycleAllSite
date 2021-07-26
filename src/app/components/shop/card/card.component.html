@@ -1,4 +1,4 @@
-<div class="row">
+<div class="container-fluid row">
   <div class="col-10">
     <li [ngClass]="{'list-group-item': true}">
       <div *ngFor="let product of this.authUserService.getSession()!.card" class="row">
@@ -28,7 +28,7 @@
       </div>
       <h5>Restant a payer : {{leftToPay}}€</h5>
       <button type="submit" class="btn btn-success"
-              [disabled]="cardForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment
+              [disabled]="cardForm.invalid || this.authUserService.getSession()!.card.length == 0">Payer avec Coin
       </button>
     </form>
   </div>
@@ -43,10 +43,10 @@
       <select id="delivery_address" class="custom-select" formControlName="delivery_address">
         <option *ngFor="let addr of userAddress;" value="{{addr.id}}">{{addr.name}} </option>
       </select>
-      <h5>Coin used in order : {{coinUsedForOrder}}</h5>
+      <h5>Coin utilisé : {{coinUsedForOrder}}</h5>
       <h5>Validation : {{finalPriceOfOrderInEuro}}€</h5>
       <button type="submit" class="btn btn-success"
-              [disabled]="validationForm.invalid || this.authUserService.getSession()!.card.length == 0">Payment
+              [disabled]="validationForm.invalid || this.authUserService.getSession()!.card.length == 0">Payer
       </button>
     </form>
   </div>

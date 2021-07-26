@@ -9,6 +9,7 @@ import {Address} from "../../../models/address.model";
 import {AddressService} from "../../../services/address.service";
 import {CoinService} from "../../../services/coin.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-card',
@@ -36,10 +37,13 @@ export class CardComponent implements OnInit {
               private addressService: AddressService,
               private userAddressService: UserAddressService,
               private coinService:CoinService,
-              private router:Router) {
+              private router:Router,
+              private userService:UserService) {
   }
 
   async ngOnInit(): Promise<void> {
+    const user = await this.userService.getOne(this.authUserService.getSession()!.user_id)
+    this.authUserService.getSession()!.recycle_coin = user.recycle_coins
     this.initValidationForm()
     this.initForm();
     await this.getCoinRatio();

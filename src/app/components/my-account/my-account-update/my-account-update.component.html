@@ -2,7 +2,7 @@
 
   <div class="col">
     <br>
-    <h5>Update : Employee</h5>
+    <h5>Modification : Employee</h5>
     <hr>
     <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
@@ -27,7 +27,7 @@
         <input type="password" id="newpassword" class="form-control" formControlName="newpassword">
       </div>
 
-      <h5>Address:</h5>
+      <h5>Adresse:</h5>
       <ul>
         <li *ngFor="let addr of address;">
           <div class="row">

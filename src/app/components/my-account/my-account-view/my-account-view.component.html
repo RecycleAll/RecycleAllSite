@@ -10,7 +10,7 @@
 
     <a *ngIf="connectedUser.work_in !== undefined" [routerLink]="'/admin/entrepot/'+entrepot?.id"  > {{entrepot?.name}}</a>
 
-    <h5>Address:</h5>
+    <h5>Adresse:</h5>
     <ul>
       <li *ngFor="let addr of address;">
         <a [routerLink]="'/address/'+addr?.id"> {{addr?.name}} </a>
@@ -18,7 +18,7 @@
       </li>
     </ul>
 
-    <a class="btn btn-primary" style="cursor: pointer;"  (click)="onUpdate()" >Update</a>
-    <a class="btn btn-primary" style="cursor: pointer;"  (click)="myOrders()" >My Orders</a>
+    <a class="btn btn-primary" style="cursor: pointer;"  (click)="onUpdate()" >Modifier</a>
+    <a class="btn btn-primary" style="cursor: pointer;"  (click)="myOrders()" >Mes commandes</a>
   </div>
 </div>
