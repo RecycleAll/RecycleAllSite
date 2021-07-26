@@ -89,7 +89,7 @@ export class DonFormComponent implements OnInit {
     this.newProductForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      serial_number: ['', [Validators.required]],
+      serial_number: [''],
       piece_of: [null],
       file: [null]
     });

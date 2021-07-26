@@ -50,7 +50,7 @@ export class DonUpdateComponent implements OnInit {
     this.donForm = this.formBuilder.group({
       user: [this.don.user_id, [Validators.required]],
       date: [dateToStringForms(this.don.date), [Validators.required]],
-      coin: [this.don.coins_win, [Validators.required]],
+      coin: [this.don.coins_win],
     });
   }
 

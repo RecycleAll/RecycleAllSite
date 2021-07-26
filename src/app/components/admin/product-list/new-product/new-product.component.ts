@@ -138,8 +138,8 @@ export class NewProductComponent implements OnInit {
     this.newProductForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      serial_number: ['', [Validators.required]],
-      price: ['', [Validators.required]], //TODO : not required
+      serial_number: [''],
+      price: [''],
       piece_of: [null],
       entrepot_id: [null]
     });

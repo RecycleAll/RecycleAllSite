@@ -116,8 +116,6 @@ export class ProductUpdateComponent implements OnInit {
 
     if (mediaProducts) {
       const tmp: MediaItem[] = mediaProducts.map(mediaProduct => {
-
-        console.log("media: " + mediaProduct.media_id);
         const mediaItem = this.allMedia.find(media => media.media?.id === mediaProduct.media_id);
         if (mediaItem) {
           return {
@@ -204,8 +202,8 @@ export class ProductUpdateComponent implements OnInit {
     this.productForm = this.formBuilder.group({
       name: [this.product.name, [Validators.required]],
       description: [this.product.description, [Validators.required]],
-      serial_number: [this.product.serial_number, [Validators.required]],
-      price: [this.product.price, [Validators.required]],
+      serial_number: [this.product.serial_number],
+      price: [this.product.price],
       piece_of: [this.product.piece_of],
       entrepot_id: [this.product.entrepot_store_id]
     });
