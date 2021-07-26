@@ -3,7 +3,9 @@
   <h4>{{connectedUser.firstname}} {{connectedUser.lastname}}</h4>
   <p>Email : {{connectedUser.email}}</p>
   <p>Coins : {{connectedUser.recycle_coins}}</p>
-  <p *ngIf="connectedUser.work_in !== undefined">{{connectedUser.work_in}}</p>
+
+
+  <a *ngIf="connectedUser.work_in !== undefined" [routerLink]="'/admin/entrepot/'+entrepo?.id"  > {{entrepo?.name}}</a>
 
   <h5>Address:</h5>
   <ul>
