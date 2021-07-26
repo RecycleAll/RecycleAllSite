@@ -25,6 +25,12 @@ export class OrderedService {
     ).toPromise();
   }
 
+  async getByUser(id: number): Promise<Ordered[]>{
+    return await this.httpClient.get<Ordered[]>(
+      environment.API_URL + `ordered/user/${id}`
+    ).toPromise();
+  }
+
   async getAll() {
     const promise = await this.httpClient.get<Ordered[]>(
       environment.API_URL + 'ordered/all',

@@ -1,0 +1,20 @@
+<li [ngClass]="{'list-group-item': true}">
+  <h4>Order: {{order.id}}</h4>
+
+  <h5>Address :
+    <a> {{address?.name}} </a>
+  </h5>
+
+  <h5>Date : {{ order.date | date:'YYYY-MM-dd HH:mm'}}</h5>
+
+  <h5>Price : {{order.price}}</h5>
+  <h5>Coin : {{order.coins_used}}</h5>
+  <h5>Reduced Price : {{order.price_after_reduce}}</h5>
+
+  <h5>Product:</h5>
+  <ul>
+    <li *ngFor="let product of products;">
+      <a [routerLink]="'/product/'+product?.id"> {{product?.name}} </a>
+    </li>
+  </ul>
+</li>

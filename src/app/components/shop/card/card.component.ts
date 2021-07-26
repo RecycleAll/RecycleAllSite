@@ -8,6 +8,7 @@ import {UserAddressService} from "../../../services/user-address.service";
 import {Address} from "../../../models/address.model";
 import {AddressService} from "../../../services/address.service";
 import {CoinService} from "../../../services/coin.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-card',
@@ -34,7 +35,8 @@ export class CardComponent implements OnInit {
               private orderedService: OrderedService,
               private addressService: AddressService,
               private userAddressService: UserAddressService,
-              private coinService:CoinService) {
+              private coinService:CoinService,
+              private router:Router) {
   }
 
   async ngOnInit(): Promise<void> {
@@ -145,6 +147,8 @@ export class CardComponent implements OnInit {
 
     this.displayConfirm = false;
     this.leftToPay = 0;
+
+    this.router.navigate(['/my-order']);
   }
 
 }

@@ -78,6 +78,8 @@ import {AdminGuardService} from "./services/admin-guard.service";
 import {MediaProductService} from "./services/media-product.service";
 import { ShopItemComponent } from './components/shop/shop-item/shop-item.component';
 import {UserAddressService} from "./services/user-address.service";
+import { MyOrderViewComponent } from './components/my-account/my-order-view/my-order-view.component';
+import { MyOrderItemComponent } from './components/my-account/my-order-item/my-order-item.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -87,6 +89,7 @@ const appRoutes: Routes = [
   { path: 'shop', component: ShopViewComponent},
   { path: 'cart', component: CardComponent, canActivate: [AuthGuardService]},
   { path: 'my-account', component: MyAccountViewComponent, canActivate: [AuthGuardService]},
+  { path: 'my-order', component: MyOrderViewComponent, canActivate: [AuthGuardService]},
   { path: 'my-account/edit', component: MyAccountUpdateComponent, canActivate: [AuthGuardService]},
   { path: 'signup', component: SignupComponent},
   { path: 'login', component: LoginComponent},
@@ -191,7 +194,9 @@ const appRoutes: Routes = [
     DonViewItemComponent,
     ProductComponent,
     CardComponent,
-    ShopItemComponent
+    ShopItemComponent,
+    MyOrderViewComponent,
+    MyOrderItemComponent
   ],
   imports: [
     BrowserModule,
