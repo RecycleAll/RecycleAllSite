@@ -78,6 +78,7 @@ import { CardComponent } from './components/shop/card/card.component';
 import {AdminGuardService} from "./services/admin-guard.service";
 import {MediaProductService} from "./services/media-product.service";
 import { ShopItemComponent } from './components/shop/shop-item/shop-item.component';
+import {UserAddressService} from "./services/user-address.service";
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -214,7 +215,8 @@ const appRoutes: Routes = [
     OrderedService,
     SendService,
     AdminGuardService,
-    MediaProductService
+    MediaProductService,
+    UserAddressService
   ],
   bootstrap: [AppComponent]
 })
