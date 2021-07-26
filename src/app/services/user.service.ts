@@ -37,7 +37,6 @@ export class UserService {
 
     if (promise.status === 200 && promise.body != null) {
       this.users = promise.body;
-      // console.log(this.users);
     }
     this.emitUsers();
   }

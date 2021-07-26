@@ -84,13 +84,7 @@ export class AuthUserService {
         email: props.email,
         password: props.password
       }
-    ).subscribe(
-      response => {
-        console.log("new user : ", response)
-      }, error => {
-        console.log("Error : ", error)
-      }
-    );
+    ).subscribe();
   }
 
 
@@ -125,12 +119,10 @@ export class AuthUserService {
       options,
     ).subscribe(
       response => {
-        console.log("Session delete !");
         this.session = undefined;
         this.emitSession();
       },
       error => {
-        console.log("Error : ", error);
       }
     )
   }

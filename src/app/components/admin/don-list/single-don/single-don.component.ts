@@ -38,7 +38,6 @@ export class SingleDonComponent implements OnInit {
 
   async initDon(id: number) {
     this.don = await this.donService.getOne(id);
-    console.log("singlDon: "+this.don.date);
   }
 
   onUpdate() {

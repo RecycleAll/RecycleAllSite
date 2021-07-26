@@ -56,7 +56,6 @@ export class DonUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     let {user, date, coin} = this.donForm.value;
-    console.log("date: "+date);
     const res = await this.donService.update( {
       id: this.don.id,
       coins_win: coin,

@@ -23,7 +23,6 @@ export class AddressUpdateComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
     await this.initAddress(id);
-    console.log(this.address);
     this.initForm();
   }
 

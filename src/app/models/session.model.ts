@@ -60,6 +60,10 @@ export class Session {
     return this._card;
   }
 
+  set card(products: Product[])  {
+    this._card = products;
+  }
+
   public addToCard(id_product: Product) {
     const index = this._card.findIndex(x => x.id === id_product.id)
     if (index === -1) {

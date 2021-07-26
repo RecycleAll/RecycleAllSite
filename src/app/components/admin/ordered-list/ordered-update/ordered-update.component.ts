@@ -127,7 +127,6 @@ export class OrderedUpdateComponent implements OnInit {
   }
 
   removeProduct(product: Product) {
-    console.log("removeProduct: " + product.name);
     let index = this.selectedProduct.indexOf(product, 0);
     if (index > -1) {
       this.selectedProduct.splice(index, 1);
@@ -144,7 +143,6 @@ export class OrderedUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     let {address, date, send, user, price, reducedPrice, coin} = this.orderForm.value;
-    console.log("date: " + date);
 
     const res = await this.orderedService.update({
       id: this.order.id,
