@@ -33,7 +33,7 @@
         <a routerLink="login" class="nav-link">Connexion</a>
       </li>
       <li *ngIf="isAuth" routerLinkActive="active" class="nav-item active">
-        <a routerLink="profil" class="nav-link">Mon profil</a>
+        <a routerLink="my-account" class="nav-link">Mon profil</a>
       </li>
       <li *ngIf="isAuth" class="nav-item active">
         <a (click)="onSignOut()" class="nav-link" id="btn_log_out">Déconnexion</a>
