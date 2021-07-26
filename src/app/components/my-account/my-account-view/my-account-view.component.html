@@ -4,4 +4,14 @@
   <p>Email : {{connectedUser.email}}</p>
   <p>Coins : {{connectedUser.recycle_coins}}</p>
   <p *ngIf="connectedUser.work_in !== undefined">{{connectedUser.work_in}}</p>
+
+  <h5>Address:</h5>
+  <ul>
+    <li *ngFor="let addr of address;">
+      <a [routerLink]="'/address/'+addr?.id"> {{addr?.name}} </a>
+      <!-- TODO -->
+    </li>
+  </ul>
+
+  <a class="btn btn-primary" style="cursor: pointer;"  (click)="onUpdate()" >Update</a>
 </div>

@@ -6,7 +6,7 @@
     <br>
     <h5>Update : Employee</h5>
     <hr>
-    <form *ngIf="entrepots.length > 0" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
         <label for="firstname">Prénom</label>
         <input type="text" id="firstname" class="form-control" formControlName="firstname">
@@ -27,6 +27,45 @@
       <select class="custom-select" name="entrepots" id="entrepots" formControlName="entrepots">
         <option *ngFor="let entrepot of entrepots;" [value]="entrepot.id">{{entrepot.name}} </option>
       </select>
+
+      <label>Address</label>
+
+      <ul>
+        <li *ngFor="let addr of userAddress;">
+          <div class="row">
+            <div class="col">
+              <a> {{addr.address?.name}} </a>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-danger" (click)="removeAddress2(addr)" >supprimmer</button>
+            </div>
+          </div>
+        </li>
+        <li *ngFor="let addr of addedAddress;">
+          <div class="row">
+            <div class="col">
+              <a> new: {{addr.address?.name}} </a>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-danger" (click)="removeAddress(addr)" >supprimmer</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="row">
+        <div class="col">
+          <select class="custom-select" name="entrepots" #t (change)="setSelectAddress(t.value)" >
+            <option> </option>
+            <option *ngFor="let addr of removedAddress;" [value]="addr.address?.id" > supprimmé:  {{addr.address?.name}} </option>
+            <option *ngFor="let addr of allAddress;" [value]="addr.address?.id" >{{addr.address?.name}} </option>
+          </select>
+        </div>
+        <div class="col-1">
+          <button type="button" class="btn btn-primary" (click)="addAddress()">ajouter</button>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
     </form>
   </div>

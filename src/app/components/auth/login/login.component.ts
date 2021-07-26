@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
 
     const isAuth = await this.authUser.logIn(email, password)
       .catch((error) => {
-        console.log("Error")
       });
     if (isAuth) {
       this.authUser.emitSession();

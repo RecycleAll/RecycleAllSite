@@ -60,7 +60,7 @@ export class SendUpdateComponent implements OnInit {
 
   async onSubmitForm() {
     let {address, date, type, status} = this.sendForm.value;
-    console.log("date: "+date);
+
     const res = await this.sendService.update( {
       id: this.send.id,
       delivery_address:address,

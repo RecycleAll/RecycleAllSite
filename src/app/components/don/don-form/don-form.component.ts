@@ -117,7 +117,6 @@ export class DonFormComponent implements OnInit {
       return
     }
 
-    console.log("donId: "+don.id);
     let args;
     if (piece_of) {
       args = {
@@ -148,9 +147,7 @@ export class DonFormComponent implements OnInit {
       return
     }
 
-    console.log("test: "+this.mediaItems);
     for(let mediaItem of this.mediaItems){
-      console.log("posting: "+mediaItem.file.name);
       const media = await this.mediaService.create({
         name: mediaItem.file.name,
         client_view: true,
