@@ -1,6 +1,6 @@
 <li [ngClass]="{'list-group-item': true}">
 
-  <h4>Date: {{don.date}}</h4>
+  <h4>Date: {{don.date | date: 'YYYY-MM-dd HH:mm'}}</h4>
 
   <h4>Product:</h4>
   <ul>
@@ -9,6 +9,6 @@
     </li>
   </ul>
 
-  <h5>Coin : {{don.coins_win}}</h5>
-
+  <h5 *ngIf="don.coins_win != undefined" >Coin : {{don.coins_win}}</h5>
+  <h6 *ngIf="don.coins_win != undefined" style="color: green">Accepté</h6>
 </li>

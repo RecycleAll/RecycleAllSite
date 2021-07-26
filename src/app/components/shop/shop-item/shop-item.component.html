@@ -1,13 +1,13 @@
 <li [ngClass]="{'list-group-item': true}">
   <div class="row">
     <div class="col-11">
-      <h4>{{product.name}}</h4>
-      <h5>Description : {{product.description}}</h5>
-      <h5>S/N : {{product.description}}</h5>
-      <h5 *ngIf="product.price">Price : {{product.price}}€/{{product.price*10}}Coin</h5>
-      <h5>Part :
+      <h5>{{product.name}}</h5>
+      <h6>Description : {{product.description}}</h6>
+      <h6>S/N : {{product.serial_number}}</h6>
+      <h6 *ngIf="product.price">Price : {{product.price}}€/{{product.price*10}}Coin</h6>
+      <h6>Part :
         <a [routerLink]="'/product/'+linkedProduct?.id"> {{linkedProduct?.name}} </a>
-      </h5>
+      </h6>
 
       <a [routerLink]="'/product/'+[product.id]">Détails</a>
     </div>

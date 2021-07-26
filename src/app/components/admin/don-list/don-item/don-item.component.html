@@ -1,21 +1,19 @@
 <li [ngClass]="{'list-group-item': true}">
 
-  <h4>Date: {{don.date | date:'YYYY-MM-dd HH:mm'}}</h4>
+  <h6>Date: {{don.date | date:'YYYY-MM-dd HH:mm'}}</h6>
 
-  <h5>Coin : {{don.coins_win}}</h5>
+  <h6>Coin : {{don.coins_win}}</h6>
 
-  <h5>User :
+  <h6>User :
     <a [routerLink]="'/admin/user/'+user?.id"> {{user?.email}} </a>
-  </h5>
+  </h6>
 
-  <h4>Product:
-    <ul>
+  <h6>Product:</h6>
+  <ul>
     <li *ngFor="let product of products;">
       <a [routerLink]="'/admin/product/'+product?.id"> {{product?.name}} </a>
     </li>
   </ul>
-  </h4>
-
 
   <a [routerLink]="[don.id]">Détails</a>
 </li>
