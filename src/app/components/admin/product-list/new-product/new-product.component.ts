@@ -145,7 +145,6 @@ export class NewProductComponent implements OnInit {
 
   async onSubmitForm() {
     const {name, description, serial_number, price, piece_of, entrepot_id} = this.newProductForm.value;
-    console.log("e: ", price);
     let args;
     if (piece_of) {
       args = {

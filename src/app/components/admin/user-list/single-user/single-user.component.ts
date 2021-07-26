@@ -40,8 +40,6 @@ export class SingleUserComponent implements OnInit {
           this.address.push(a);
       }
     }
-    console.log(userAddresses);
-    console.log(this.address);
   }
 
   async onDelete() {
