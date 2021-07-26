@@ -8,6 +8,13 @@
       <h5>Id : {{user.id}}</h5>
       <h5>Email : {{user.email}}</h5>
       <h5>Recycle Coin : {{user.recycle_coins}}</h5>
+      <h5>Address: </h5>
+      <ul>
+        <li *ngFor="let addr of address;">
+          <a [routerLink]="'/admin/address/'+addr?.id"> {{addr?.name}} </a>
+        </li>
+      </ul>
+
       <a class="btn btn-primary" style="cursor: pointer;" (click)="onUpdate()" >Update</a>
       <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
     </div>

@@ -6,7 +6,7 @@
     <br>
     <h5>Nouveau : Employee</h5>
     <hr>
-    <form [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
       <div class="form-group">
         <label for="firstname">Prénom</label>
         <input type="text" id="firstname" class="form-control" formControlName="firstname">
@@ -23,11 +23,40 @@
         <label for="password">Password</label>
         <input type="password" id="password" class="form-control" formControlName="password">
       </div>
+
       <label for="entrepots">Entrepot</label>
       <select class="custom-select" name="entrepots" id="entrepots" formControlName="entrepots">
         <option> </option>
         <option *ngFor="let entrepot of entrepots;" [value]="entrepot.id">{{entrepot.name}} </option>
       </select>
+
+      <label>Address</label>
+
+      <ul>
+        <li *ngFor="let addr of addedAddress;">
+          <div class="row">
+            <div class="col">
+              <a> {{addr?.name}} </a>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-danger" (click)="removeAddress(addr)" >supprimmer</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="row">
+        <div class="col">
+          <select class="custom-select" name="entrepots" #t (change)="setSelectAddress(t.value)" >
+            <option> </option>
+            <option *ngFor="let addr of address;" [value]="addr.id" >{{addr.name}} </option>
+          </select>
+        </div>
+        <div class="col-1">
+          <button type="button" class="btn btn-primary" (click)="addAddress()">ajouter</button>
+        </div>
+      </div>
+
       <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
     </form>
   </div>
