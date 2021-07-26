@@ -30,7 +30,6 @@ export class NewUserComponent implements OnInit {
         this.entrepots = entrepots;
       }
     )
-    console.log(this.entrepots)
     this.entrepotService.emitEntrepot();
   }
 

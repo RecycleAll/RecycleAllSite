@@ -34,7 +34,6 @@ export class NewAddressComponent implements OnInit {
 
   async onSubmitForm() {
     const value = this.addressForm.value;
-    // console.log(name);
     const res = await this.addressService.create({
       ...value
     });

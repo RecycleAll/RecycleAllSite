@@ -57,7 +57,6 @@ export class MediaUpdateComponent implements OnInit {
         return value.name
       }
     });
-    console.log(mediaType);
     this.mediaForm = this.formBuilder.group({
       name: [this.media.name, Validators.required],
       client_view: [this.media.client_view],
@@ -66,7 +65,6 @@ export class MediaUpdateComponent implements OnInit {
   }
 
   async onSubmitForm() {
-    console.log(this.mediaForm.value);
     const {name, client_view, media_type_id} = this.mediaForm.value;
     const id = this.media.id;
     const res = await this.mediaService.update({

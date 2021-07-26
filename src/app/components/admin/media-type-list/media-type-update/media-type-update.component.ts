@@ -23,7 +23,6 @@ export class MediaTypeUpdateComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const id = this.route.snapshot.params['id'];
     await this.initMediaType(id);
-    // console.log(this.mediaType);
     this.initForm();
   }
 

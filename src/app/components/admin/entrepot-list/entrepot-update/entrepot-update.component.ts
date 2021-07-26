@@ -55,7 +55,6 @@ export class EntrepotUpdateComponent implements OnInit {
   async onSubmitForm() {
     const {name, isAtelier, address} = this.entrepotForm.value;
 
-    console.log("adr: "+address);
     const res = await this.entrepotService.update({
       id: this.entrepot.id,
       name,
