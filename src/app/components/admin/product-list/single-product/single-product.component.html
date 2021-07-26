@@ -28,16 +28,12 @@
         <a class="btn btn-danger" style="cursor: pointer;" (click)="onDelete()" >Supprimer</a>
       </div>
       <div class="col-5">
-        <img *ngFor="let media of mediaProducts" class="img-thumbnail" [src]="mediaPath+media.media_id">
+        <app-image-display
+          *ngFor="let media of mediaProducts"
+          [urlImg]="mediaPath+media.media_id"
+        ></app-image-display>
       </div>
     </div>
-<!--    <div class="container-fluid" *ngIf="product !== undefined">-->
-<!--      -->
 
-<!--      <div class="col">-->
-<!--        <img *ngFor="let media of mediaProducts" class="img-thumbnail" [src]="mediaPath+media.media_id">-->
-<!--      </div>-->
-
-<!--    </div>-->
   </div>
 </div>

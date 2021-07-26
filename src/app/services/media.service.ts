@@ -86,7 +86,7 @@ export class MediaService {
       {
         id: props.id,
         name: props.name,
-        path: props.name,
+        path: props.path,
         client_view: props.client_view,
         media_type_id: props.media_type_id,
         user_save: props.user_save

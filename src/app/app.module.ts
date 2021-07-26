@@ -80,6 +80,7 @@ import { ShopItemComponent } from './components/shop/shop-item/shop-item.compone
 import {UserAddressService} from "./services/user-address.service";
 import { MyOrderViewComponent } from './components/my-account/my-order-view/my-order-view.component';
 import { MyOrderItemComponent } from './components/my-account/my-order-item/my-order-item.component';
+import { ImageDisplayComponent } from './components/image-display/image-display.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -196,7 +197,8 @@ const appRoutes: Routes = [
     CardComponent,
     ShopItemComponent,
     MyOrderViewComponent,
-    MyOrderItemComponent
+    MyOrderItemComponent,
+    ImageDisplayComponent
   ],
   imports: [
     BrowserModule,

@@ -8,7 +8,7 @@
     <hr>
     <div class="row">
       <div class="col-5">
-        <img class="img-thumbnail" [src]="urlImg">
+        <app-image-display [urlImg]="urlImg"></app-image-display>
       </div>
       <div class="col-5" *ngIf="media !== undefined && mediaType !== undefined">
           <h5>ID : {{media.id}}</h5>

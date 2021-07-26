@@ -23,7 +23,7 @@ export class MyAccountViewComponent implements OnInit {
   sessionSubscription!: Subscription;
 
   address: Address[] = [];
-  entrepo?: Entrepot;
+  entrepot?: Entrepot;
 
   constructor(private router: Router,
               private userService : UserService,
@@ -59,7 +59,7 @@ export class MyAccountViewComponent implements OnInit {
     this.connectedUser = await this.userService.getOne(id);
 
     if(this.connectedUser.work_in)
-      this.entrepo = await this.entrepotService.getOne( this.connectedUser.work_in);
+      this.entrepot = await this.entrepotService.getOne( this.connectedUser.work_in);
 
     let userAddresses = await this.userAddressService.getAllByUser(this.connectedUser.id);
 

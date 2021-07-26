@@ -12,7 +12,9 @@
   </div>
   <div class="row">
     <div *ngFor="let media of mediaProducts" class="col container-fluid">
-      <img class="img-thumbnail " [src]="mediaPath+media.media_id">
+      <app-image-display
+        [urlImg]="mediaPath+media.media_id"
+      ></app-image-display>
     </div>
   </div>
 </div>
