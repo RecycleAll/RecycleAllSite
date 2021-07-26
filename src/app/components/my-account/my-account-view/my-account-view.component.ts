@@ -67,4 +67,8 @@ export class MyAccountViewComponent implements OnInit {
 
   }
 
+  myOrders(){
+    this.router.navigate([`my-order`])
+  }
+
 }
