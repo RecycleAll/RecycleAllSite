@@ -1,2 +1,92 @@
-<p>my-account-update works!</p>
-<!--TODO-->
+<div class="row container-fluid">
+
+  <div class="col">
+    <br>
+    <h5>Update : Employee</h5>
+    <hr>
+    <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="onSubmitForm()">
+      <div class="form-group">
+        <label for="firstname">Prénom</label>
+        <input type="text" id="firstname" class="form-control" formControlName="firstname">
+      </div>
+      <div class="form-group">
+        <label for="lastname">Nom</label>
+        <input type="text" id="lastname" class="form-control" formControlName="lastname">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" id="email" class="form-control" formControlName="email">
+      </div>
+
+      <div class="form-group">
+        <label for="oldpassword">New Password</label>
+        <input type="password" id="oldpassword" class="form-control" formControlName="oldpassword">
+      </div>
+      <div class="form-group">
+        <label for="newpassword">New Password</label>
+        <input type="password" id="newpassword" class="form-control" formControlName="newpassword">
+      </div>
+
+      <h5>Address:</h5>
+      <ul>
+        <li *ngFor="let addr of address;">
+          <div class="row">
+            <div class="col">
+              <a [routerLink]="'/address/'+addr.address?.id"> {{addr.address?.name}} </a>
+              <!-- TODO link-->
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-danger" (click)="removeAddress(addr)" >supprimmer</button>
+            </div>
+          </div>
+        </li>
+
+        <li *ngFor="let addr of newAddress;">
+          <div class="row">
+            <div class="col">
+              <a > new: {{addr?.name}} </a>
+            </div>
+            <div class="col-1">
+              <button type="button" class="btn btn-danger" (click)="removeAddress2(addr)" >supprimmer</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+
+      <div class="col">
+        <button *ngIf="!displayNewAddressForm" type="button" class="btn" (click)="onAddNewAddress()">nouvelle addresse</button>
+
+        <form *ngIf="addressForm && displayNewAddressForm" [formGroup]="addressForm" (ngSubmit)="onSubmitAddressForm()">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" class="form-control" formControlName="name">
+          </div>
+          <div class="form-group">
+            <label for="number">Number</label>
+            <input type="number" id="number" class="form-control" formControlName="number">
+          </div>
+          <div class="form-group">
+            <label for="way">Way</label>
+            <input type="text" id="way" class="form-control" formControlName="way">
+          </div>
+          <div class="form-group">
+            <label for="complement_way">Complement way</label>
+            <input type="text" id="complement_way" class="form-control" formControlName="complement_way">
+          </div>
+          <div class="form-group">
+            <label for="postal_code">Postal code</label>
+            <input type="number" id="postal_code" class="form-control" formControlName="postal_code">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" class="form-control" formControlName="city">
+          </div>
+          <button type="submit" class="btn btn-primary" [disabled]="addressForm.invalid">Soumettre</button>
+          <button type="button" class="btn btn-danger" (click)="onCancelNewAddress()" >Annuler</button>
+        </form>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Soumettre</button>
+    </form>
+  </div>
+
+</div>
