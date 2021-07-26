@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
       if (session != undefined && session.isAdmin){
         await this.router.navigate(['/admin']);
       } else {
-        await this.router.navigate(['/profil']);
+        await this.router.navigate(['/my-account']);
       }
     } else {
       alert("Erreur de connexion !\nEmail ou password invalid.f");
