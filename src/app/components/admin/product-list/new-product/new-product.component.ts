@@ -139,7 +139,7 @@ export class NewProductComponent implements OnInit {
       name: ['', [Validators.required]],
       description: ['', [Validators.required]],
       serial_number: ['', [Validators.required]],
-      price: ['', [Validators.required]],
+      price: ['', [Validators.required]], //TODO : not required
       piece_of: [null],
       entrepot_id: [null]
     });

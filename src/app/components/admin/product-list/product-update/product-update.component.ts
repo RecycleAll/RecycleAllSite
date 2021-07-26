@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {Product, ProductCreation} from "../../../../models/product.model";
+import {Product} from "../../../../models/product.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProductsService} from "../../../../services/products.service";
 import {Entrepot} from "../../../../models/entrepot.model";
@@ -10,7 +10,6 @@ import {MediaType} from "../../../../models/media-type.model";
 import {MediaTypeService} from "../../../../services/media-type.service";
 import {MediaProductService} from "../../../../services/media-product.service";
 import {MediaService} from "../../../../services/media.service";
-import {isMetadataImportDefaultReference} from "@angular/compiler-cli";
 
 
 interface MediaItem{
@@ -109,7 +108,9 @@ export class ProductUpdateComponent implements OnInit {
   async initProduct(id: number) {
     this.product = await this.productService.getOne(id);
 
-    const mediaProducts = (await this.mediaProductService.getAllByProduct(this.product.id));
+    const mediaProducts = await this.mediaProductService.getAllByProduct(this.product.id);
+
+    console.log("media product : ", mediaProducts);
 
     if( mediaProducts){
       const tmp: MediaItem[] = mediaProducts.map(mediaProduct => {
@@ -120,6 +121,7 @@ export class ProductUpdateComponent implements OnInit {
                             file: undefined
                           }
                         });
+      console.log("linkedMedia : ", tmp);
       if(tmp){
         this.linkedMedia = tmp;
       }else{
@@ -132,7 +134,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   setMediaType(mediaTypeID: string) {
-    const id = Number(mediaTypeID);
+    const id = Number.parseInt(mediaTypeID);
     this.currentMediaType = this.mediaTypes.find(value => value.id === id);
   }
 
